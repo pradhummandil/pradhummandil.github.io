@@ -317,9 +317,9 @@ stack.forEach(s=>{
 });
 
 const jobs = [
-  {date:'2026 &mdash; Now', role:'Founder &mdash; building Adihat, end to end', org:'Adihat (Healthcare Startup)',
+  {date:'2025 &mdash; Now', role:'Founder &mdash; building Adihat, end to end', org:'Adihat (Healthcare Startup)',
    desc:'Designing and building an eight-portal healthcare platform \u2014 Patient, Doctor, Hospital, Lab, Pharmacy, Ambulance, Insurance and Admin \u2014 as a Flutter monorepo with role-based access control and audit-logged compliance work.'},
-  {date:'2023 &mdash; Now', role:'B.Tech, Information Technology', org:'Samrat Ashok Technological Institute, Vidisha',
+  {date:'2024 &mdash; Now', role:'B.Tech, Information Technology', org:'Samrat Ashok Technological Institute, Vidisha',
    desc:'Studying IT while running freelance projects on the side \u2014 full-stack web, Flutter apps, UI/UX design and video editing for real clients.'},
   {date:'Ongoing', role:'Freelance Full-Stack &amp; App Developer', org:'Independent / Client Work',
    desc:'Ships production web apps \u2014 Study Hub, India Story Project \u2014 and client sites end to end, using React, Next.js, Supabase and Node.js, from spec to deploy.'},
