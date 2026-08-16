@@ -13,6 +13,23 @@
 
 </head>
 <body>
+  <!-- Background music -->
+<audio id="backgroundMusic" loop preload="auto">
+  <source src="/music/suspense-tension.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Sound toggle -->
+<button
+  id="soundToggle"
+  class="sound-toggle"
+  type="button"
+  aria-label="Turn background sound on"
+  aria-pressed="false"
+>
+  <span class="sound-icon">♪</span>
+  <span class="sound-label">SOUND OFF</span>
+</button>
+
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="fm-rough" x="-20%" y="-20%" width="140%" height="140%">

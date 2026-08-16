@@ -1,6 +1,101 @@
 import './style.css';
 import emailjs from '@emailjs/browser';
 
+// ---------- Background Music ----------
+const backgroundMusic = document.getElementById('backgroundMusic');
+const soundToggle = document.getElementById('soundToggle');
+
+if (backgroundMusic && soundToggle) {
+  const soundIcon = soundToggle.querySelector('.sound-icon');
+  const soundLabel = soundToggle.querySelector('.sound-label');
+
+  const TARGET_VOLUME = 0.10;
+
+  backgroundMusic.volume = TARGET_VOLUME;
+  backgroundMusic.loop = true;
+
+  function updateSoundButton() {
+    const playing = !backgroundMusic.paused;
+
+    soundToggle.classList.toggle('is-playing', playing);
+    soundToggle.setAttribute('aria-pressed', String(playing));
+    soundToggle.setAttribute(
+      'aria-label',
+      playing ? 'Turn background sound off' : 'Turn background sound on'
+    );
+
+    if (soundIcon) {
+      soundIcon.textContent = playing ? '♫' : '♪';
+    }
+
+    if (soundLabel) {
+      soundLabel.textContent = playing ? 'SOUND ON' : 'SOUND OFF';
+    }
+  }
+
+  async function startMusic() {
+    try {
+      backgroundMusic.volume = TARGET_VOLUME;
+      await backgroundMusic.play();
+      updateSoundButton();
+      return true;
+    } catch (error) {
+      updateSoundButton();
+      return false;
+    }
+  }
+
+  function stopMusic() {
+    backgroundMusic.pause();
+    backgroundMusic.volume = TARGET_VOLUME;
+    updateSoundButton();
+  }
+
+  // Toggle button
+  soundToggle.addEventListener('click', async () => {
+    if (backgroundMusic.paused) {
+      await startMusic();
+    } else {
+      stopMusic();
+    }
+  });
+
+  backgroundMusic.addEventListener('play', updateSoundButton);
+  backgroundMusic.addEventListener('pause', updateSoundButton);
+
+  // Try autoplay immediately
+  startMusic();
+
+  // If browser blocks autoplay, start on first interaction
+  const interactionEvents = [
+    'click',
+    'pointerdown',
+    'keydown',
+    'touchstart',
+    'scroll'
+  ];
+
+  function tryStartAfterInteraction() {
+    if (backgroundMusic.paused) {
+      startMusic();
+    }
+
+    interactionEvents.forEach(eventName => {
+      window.removeEventListener(eventName, tryStartAfterInteraction);
+    });
+  }
+
+  interactionEvents.forEach(eventName => {
+    window.addEventListener(eventName, tryStartAfterInteraction, {
+      once: true,
+      passive: true
+    });
+  });
+
+  updateSoundButton();
+}
+
+
 /*
  * Pradhum Mandil Portfolio
  * External JavaScript
@@ -484,3 +579,118 @@ window.addEventListener('popstate', function(){
 });
 if (location.hash.startsWith('#case-')) openCaseFile(location.hash.replace('#case-',''));
 else if (location.hash === '#casefiles') openCaseFolder();
+// ---------- Background Music ----------
+(() => {
+  const backgroundMusic = document.getElementById('backgroundMusic');
+  const soundToggle = document.getElementById('soundToggle');
+
+  if (!backgroundMusic || !soundToggle) return;
+
+  const soundIcon = soundToggle.querySelector('.sound-icon');
+  const soundLabel = soundToggle.querySelector('.sound-label');
+
+  const TARGET_VOLUME = 0.10;
+
+  let soundEnabled = true;
+  let userHasInteracted = false;
+
+  backgroundMusic.loop = true;
+  backgroundMusic.volume = TARGET_VOLUME;
+
+  function updateUI() {
+    soundToggle.classList.toggle('is-playing', soundEnabled);
+    soundToggle.setAttribute('aria-pressed', String(soundEnabled));
+
+    soundToggle.setAttribute(
+      'aria-label',
+      soundEnabled
+        ? 'Turn background sound off'
+        : 'Turn background sound on'
+    );
+
+    if (soundIcon) {
+      soundIcon.textContent = soundEnabled ? '♫' : '♪';
+    }
+
+    if (soundLabel) {
+      soundLabel.textContent = soundEnabled ? 'SOUND ON' : 'SOUND OFF';
+    }
+  }
+
+  async function playMusic() {
+    if (!soundEnabled) return;
+
+    try {
+      backgroundMusic.volume = TARGET_VOLUME;
+      await backgroundMusic.play();
+    } catch (error) {
+      console.debug('Autoplay blocked:', error);
+    }
+
+    updateUI();
+  }
+
+  function stopMusic() {
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
+    updateUI();
+  }
+
+  // Manual toggle
+  soundToggle.addEventListener('click', async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    userHasInteracted = true;
+
+    if (soundEnabled) {
+      // TURN OFF
+      soundEnabled = false;
+      stopMusic();
+    } else {
+      // TURN ON
+      soundEnabled = true;
+      await playMusic();
+    }
+  });
+
+  // Try autoplay once
+  playMusic();
+
+  // If autoplay is blocked, the first interaction starts it.
+  // IMPORTANT: sound button itself is excluded.
+  const startAfterInteraction = async (event) => {
+    if (userHasInteracted) return;
+
+    if (event.target.closest('#soundToggle')) return;
+
+    userHasInteracted = true;
+
+    if (soundEnabled && backgroundMusic.paused) {
+      await playMusic();
+    }
+
+    window.removeEventListener('pointerdown', startAfterInteraction);
+    window.removeEventListener('keydown', startAfterInteraction);
+    window.removeEventListener('touchstart', startAfterInteraction);
+    window.removeEventListener('scroll', startAfterInteraction);
+  };
+
+  window.addEventListener('pointerdown', startAfterInteraction, {
+    passive: true
+  });
+
+  window.addEventListener('keydown', startAfterInteraction, {
+    passive: true
+  });
+
+  window.addEventListener('touchstart', startAfterInteraction, {
+    passive: true
+  });
+
+  window.addEventListener('scroll', startAfterInteraction, {
+    passive: true
+  });
+
+  updateUI();
+})();

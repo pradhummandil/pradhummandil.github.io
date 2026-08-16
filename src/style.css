@@ -399,3 +399,64 @@
   /* ---------- decorative section-break magnifying glass ---------- */
   .section-glass{display:flex;justify-content:center;padding:22px 0;color:var(--ink-faint);}
   .section-glass svg{width:22px;height:22px;}
+  /* ---------- Background Sound Toggle ---------- */
+
+.sound-toggle {
+  position: fixed;
+  top: 74px;
+  right: 20px;
+  z-index: 1000;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  min-height: 38px;
+  padding: 8px 12px;
+
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+
+  font-family: var(--font-gothic);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition:
+    background-color .2s ease,
+    color .2s ease,
+    transform .2s ease;
+}
+
+.sound-toggle:hover {
+  background: var(--ink);
+  color: var(--paper);
+  transform: translateY(-1px);
+}
+
+.sound-toggle.is-playing {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.sound-icon {
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1;
+}
+
+@media (max-width: 639px) {
+  .sound-toggle {
+    top: 66px;
+    right: 12px;
+    padding: 8px 10px;
+  }
+
+  .sound-label {
+    display: none;
+  }
+}
