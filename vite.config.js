@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  base: '/',
   build: {
     sourcemap: false,
     minify: 'esbuild',
@@ -10,8 +11,8 @@ export default defineConfig({
       output: {
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash][extname]'
-      }
-    }
-  }
+        assetFileNames: 'assets/[name]-[hash][extname]',
+      },
+    },
+  },
 });
