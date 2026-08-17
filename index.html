@@ -5,15 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Pradhum Mandil - Full-Stack &amp; Flutter Developer</title>
 <meta name="description" content="Pradhum Mandil is a full-stack and Flutter developer from Bhopal, India, building web apps, mobile apps, and Adihat — a healthcare platform — end to end."/>
-<!-- Favicon -->
 <link rel="icon" type="image/png" href="/images/pradhum.png"/>
 <link rel="apple-touch-icon" href="/images/pradhum.png"/>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Libre+Franklin:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <!-- External styles -->
-<link rel="stylesheet" href="/src/style.css">
+
 </head>
 <body>
 
@@ -101,6 +99,49 @@
   </div>
 </div>
 
+<div id="resumeView" aria-hidden="true">
+  <div class="shell resume-topbar">
+    <div class="resume-topbar-row">
+      <button class="cf-back resume-back" id="resumeBack" type="button">
+        <span>&larr; Back to the desk</span>
+      </button>
+      <span>The Pradhum Mandil Times &middot; Curriculum Vitae</span>
+      <span>Filed from India</span>
+    </div>
+  </div>
+
+  <main class="shell resume-page">
+    <div class="resume-heading">
+      <div>
+        <span class="resume-kicker">Private Record &middot; 2026</span>
+        <h1>Resume</h1>
+        <p>Pradhum Mandil &middot; Full-Stack Web &amp; App Developer</p>
+      </div>
+      <div class="resume-actions">
+        <a class="btn btn-ghost btn-sm" href="/pdf/Resume.pdf" target="_blank" rel="noopener noreferrer">Open PDF ↗</a>
+        <a class="btn btn-primary btn-sm" href="/pdf/Resume.pdf" download="Pradhum-Mandil-Resume.pdf">Download</a>
+      </div>
+    </div>
+
+    <section class="resume-reader" aria-label="Resume PDF reader">
+      <div class="resume-reader-bar">
+        <span>Document Viewer</span>
+        <span>Resume.pdf</span>
+      </div>
+      <iframe
+        id="resumeFrame"
+        src="/pdf/Resume.pdf#toolbar=1&navpanes=0&scrollbar=1&view=FitH"
+        title="Pradhum Mandil Resume"
+        loading="eager"
+      ></iframe>
+      <div class="resume-fallback">
+        <p>If the embedded viewer is unavailable in this browser, open the PDF directly.</p>
+        <a class="btn btn-primary btn-sm" href="/pdf/Resume.pdf" target="_blank" rel="noopener noreferrer">Open Resume PDF ↗</a>
+      </div>
+    </section>
+  </main>
+</div>
+
 <div id="caseFolderView">
   <div class="shell cf-topbar">
     <div class="cf-topbar-row">
@@ -144,6 +185,7 @@
     <nav class="bar">
       <span class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">Pradhum Mandil</span>
       <div class="nav-links">
+        <a id="navResume" style="cursor:pointer;">Resume</a>
         <a href="#work">Work</a>
         <a href="#stack">Stack</a>
         <a id="navCaseFiles" style="cursor:pointer;">Case Files</a>
@@ -158,6 +200,7 @@
       </div>
     </nav>
     <div class="mobile-menu" id="mobileMenu">
+      <a id="navResumeMobile" style="cursor:pointer;">Resume <span>&rarr;</span></a>
       <a href="#work">Work <span>&rarr;</span></a>
       <a href="#stack">Stack <span>&rarr;</span></a>
       <a id="navCaseFilesMobile" style="cursor:pointer;">Case Files <span>&rarr;</span></a>
