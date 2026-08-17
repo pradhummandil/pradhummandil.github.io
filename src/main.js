@@ -1,101 +1,6 @@
 import './style.css';
 import emailjs from '@emailjs/browser';
 
-// ---------- Background Music ----------
-const backgroundMusic = document.getElementById('backgroundMusic');
-const soundToggle = document.getElementById('soundToggle');
-
-if (backgroundMusic && soundToggle) {
-  const soundIcon = soundToggle.querySelector('.sound-icon');
-  const soundLabel = soundToggle.querySelector('.sound-label');
-
-  const TARGET_VOLUME = 0.10;
-
-  backgroundMusic.volume = TARGET_VOLUME;
-  backgroundMusic.loop = true;
-
-  function updateSoundButton() {
-    const playing = !backgroundMusic.paused;
-
-    soundToggle.classList.toggle('is-playing', playing);
-    soundToggle.setAttribute('aria-pressed', String(playing));
-    soundToggle.setAttribute(
-      'aria-label',
-      playing ? 'Turn background sound off' : 'Turn background sound on'
-    );
-
-    if (soundIcon) {
-      soundIcon.textContent = playing ? '♫' : '♪';
-    }
-
-    if (soundLabel) {
-      soundLabel.textContent = playing ? 'SOUND ON' : 'SOUND OFF';
-    }
-  }
-
-  async function startMusic() {
-    try {
-      backgroundMusic.volume = TARGET_VOLUME;
-      await backgroundMusic.play();
-      updateSoundButton();
-      return true;
-    } catch (error) {
-      updateSoundButton();
-      return false;
-    }
-  }
-
-  function stopMusic() {
-    backgroundMusic.pause();
-    backgroundMusic.volume = TARGET_VOLUME;
-    updateSoundButton();
-  }
-
-  // Toggle button
-  soundToggle.addEventListener('click', async () => {
-    if (backgroundMusic.paused) {
-      await startMusic();
-    } else {
-      stopMusic();
-    }
-  });
-
-  backgroundMusic.addEventListener('play', updateSoundButton);
-  backgroundMusic.addEventListener('pause', updateSoundButton);
-
-  // Try autoplay immediately
-  startMusic();
-
-  // If browser blocks autoplay, start on first interaction
-  const interactionEvents = [
-    'click',
-    'pointerdown',
-    'keydown',
-    'touchstart',
-    'scroll'
-  ];
-
-  function tryStartAfterInteraction() {
-    if (backgroundMusic.paused) {
-      startMusic();
-    }
-
-    interactionEvents.forEach(eventName => {
-      window.removeEventListener(eventName, tryStartAfterInteraction);
-    });
-  }
-
-  interactionEvents.forEach(eventName => {
-    window.addEventListener(eventName, tryStartAfterInteraction, {
-      once: true,
-      passive: true
-    });
-  });
-
-  updateSoundButton();
-}
-
-
 /*
  * Pradhum Mandil Portfolio
  * External JavaScript
@@ -259,6 +164,13 @@ const cards = [
   {ex:'Exhibit E', slug:'hostel-management', cat:'Open source &middot; GitHub', title:'Hostel Management', url:'github.com/pradhummandil/hostel-management',
    desc:'A smaller utility from the repo list \u2014 a hostel management system for handling room allotments, resident records and everyday admin work, built to solve one specific problem cleanly.',
    tags:['TypeScript','React','Node.js'], meta:'2026', colors:['#151a1f','#2c3944']},
+
+  {ex:'Exhibit F', slug:'nearhive-partner', cat:'UI/UX &middot; Figma', title:'Nearhive Partner App', url:'figma.com/design/nearhive-partner-app',
+   desc:'A mobile-first partner product exploration designed in Figma, focused on clear operational workflows, information hierarchy, and a polished partner-side experience.',
+   tags:['Figma','UI/UX','Mobile Design','Prototype'], meta:'2026 &middot; Product Design', colors:['#1b1712','#5b4630']},
+  {ex:'Exhibit G', slug:'swiggy-instamart-human-care', cat:'UI/UX &middot; Figma', title:'Swiggy Instamart — Human Care', url:'figma.com/design/swiggy-instamart-human-care',
+   desc:'A human-centered UI/UX concept exploring how Instamart could make support, assistance, and care interactions feel more accessible, reassuring, and intuitive.',
+   tags:['Figma','UI/UX','Human-Centered Design','Prototype'], meta:'2026 &middot; Concept Design', colors:['#2b1717','#733b32']},
 ];
 const cardGrid = document.getElementById('cardGrid');
 cards.forEach(c=>{
@@ -317,9 +229,9 @@ stack.forEach(s=>{
 });
 
 const jobs = [
-  {date:'2025 &mdash; Now', role:'Founder &mdash; building Adihat, end to end', org:'Adihat (Healthcare Startup)',
+  {date:'2026 &mdash; Now', role:'Founder &mdash; building Adihat, end to end', org:'Adihat (Healthcare Startup)',
    desc:'Designing and building an eight-portal healthcare platform \u2014 Patient, Doctor, Hospital, Lab, Pharmacy, Ambulance, Insurance and Admin \u2014 as a Flutter monorepo with role-based access control and audit-logged compliance work.'},
-  {date:'2024 &mdash; Now', role:'B.Tech, Information Technology', org:'Samrat Ashok Technological Institute, Vidisha',
+  {date:'2023 &mdash; Now', role:'B.Tech, Information Technology', org:'Samrat Ashok Technological Institute, Vidisha',
    desc:'Studying IT while running freelance projects on the side \u2014 full-stack web, Flutter apps, UI/UX design and video editing for real clients.'},
   {date:'Ongoing', role:'Freelance Full-Stack &amp; App Developer', org:'Independent / Client Work',
    desc:'Ships production web apps \u2014 Study Hub, India Story Project \u2014 and client sites end to end, using React, Next.js, Supabase and Node.js, from spec to deploy.'},
@@ -478,7 +390,48 @@ const caseFiles = {
     quote:null,
     facts:[['Frontend','React &middot; TypeScript'],['Backend','Node.js'],['Scope','Single-purpose utility'],['Status','On GitHub']],
     related:['study-hub','adihat-full-app']
+  },
+  'nearhive-partner': {
+    ex:'Exhibit F', label:'UI/UX &middot; Figma',
+    url:'https://www.figma.com/design/Q0WkyrCoPCYjVbTZ1TYp1X/nearhive-partner-app?t=4MNws0N7hF3epEGQ-0',
+    domain:'figma.com',
+    prototypeUrl:'https://www.figma.com/proto/Q0WkyrCoPCYjVbTZ1TYp1X/nearhive-partner-app?node-id=415-460&starting-point-node-id=415%3A460',
+    prototypeEmbed:'https://embed.figma.com/proto/Q0WkyrCoPCYjVbTZ1TYp1X/nearhive-partner-app?node-id=415-460&starting-point-node-id=415%3A460&embed-host=share',
+    headline:'A partner-side product experience designed to make operations feel simple.',
+    dek:'A Figma-based mobile product exploration for the Nearhive Partner App — focused on clear workflows, practical information hierarchy, and a polished partner experience.',
+    meta:'2026 &middot; Product Design',
+    colors:['#1b1712','#5b4630'],
+    body:[
+      "Nearhive Partner App is a UI/UX exploration built in Figma around the needs of a partner-facing mobile product. The focus was not only visual polish, but making the key actions and operational information easy to discover.",
+      "The design system uses structured hierarchy, clear action states, and mobile-first layouts so the interface can remain readable while carrying a realistic amount of product information.",
+      "The prototype connects the main screens into an interactive flow, allowing the experience to be evaluated as a product rather than as a set of disconnected static screens.",
+      "This case file represents the design side of the portfolio — product thinking, interface systems, interaction design, and prototype-driven iteration."
+    ],
+    quote:'"A product should make the next action obvious before the user has to search for it."',
+    facts:[['Tool','Figma'],['Type','Mobile product UI/UX'],['Focus','Partner workflows'],['Prototype','Interactive'],['Platform','Mobile'],['Status','Design exploration']],
+    related:['swiggy-instamart-human-care','study-hub']
+  },
+  'swiggy-instamart-human-care': {
+    ex:'Exhibit G', label:'UI/UX &middot; Human Care',
+    url:'https://www.figma.com/design/DUAtrHb8NiYj2swyKGiAPo/Swiggy-Instamart--Human-Care--Pradhum-Mandil?t=VNWmmvIWTm6BT7oq-0',
+    domain:'figma.com',
+    prototypeUrl:'https://www.figma.com/proto/DUAtrHb8NiYj2swyKGiAPo/Swiggy-Instamart--Human-Care--Pradhum-Mandil?node-id=0-1',
+    prototypeEmbed:'https://embed.figma.com/proto/DUAtrHb8NiYj2swyKGiAPo/Swiggy-Instamart--Human-Care--Pradhum-Mandil?node-id=40002223-3042&starting-point-node-id=40002223%3A3042&embed-host=share',
+    headline:'A human-centered care concept for Instamart.',
+    dek:'A Figma concept exploring how a high-speed commerce product could introduce a more reassuring, accessible, and human support experience.',
+    meta:'2026 &middot; Concept Design',
+    colors:['#2b1717','#733b32'],
+    body:[
+      "Swiggy Instamart — Human Care explores the support layer around a fast commerce experience. The project looks at how care, assistance, and problem resolution can feel less transactional and more human.",
+      "The interface balances the speed expected from Instamart with clearer communication, friendlier guidance, and stronger visual reassurance around moments where users may feel uncertain or need help.",
+      "The prototype turns the concept into a navigable experience, making it possible to inspect the interaction flow rather than evaluating only individual screens.",
+      "It is a concept case study that demonstrates UX thinking: identifying a human problem, framing the interaction, and expressing the solution through interface design."
+    ],
+    quote:'"Good support does not only solve the problem — it reduces the anxiety around having the problem."',
+    facts:[['Tool','Figma'],['Type','UI/UX concept'],['Focus','Human-centered care'],['Prototype','Interactive'],['Platform','Mobile'],['Status','Concept exploration']],
+    related:['nearhive-partner','study-hub']
   }
+
 };
 
 function cfHeroImg(slug, alt){
@@ -518,6 +471,20 @@ function openCaseFile(slug){
     return rd ? `<a data-case="${s}">${rd.ex} &mdash; ${rd.headline.split(' ').slice(0,4).join(' ')}&hellip;</a>` : '';
   }).join('');
   document.getElementById('cfVisit').href = d.url;
+
+  const prototypeSection = document.getElementById('cfPrototype');
+  const prototypeIframe = document.getElementById('cfPrototypeIframe');
+  const prototypeOpen = document.getElementById('cfPrototypeOpen');
+
+  if (d.prototypeEmbed) {
+    prototypeSection.style.display = 'block';
+    prototypeIframe.src = d.prototypeEmbed;
+    prototypeOpen.href = d.prototypeUrl;
+  } else {
+    prototypeSection.style.display = 'none';
+    prototypeIframe.src = '';
+    prototypeOpen.href = '#';
+  }
 
   showView('case');
   document.title = `Case File: ${d.ex} — Pradhum Mandil`;
@@ -579,6 +546,8 @@ window.addEventListener('popstate', function(){
 });
 if (location.hash.startsWith('#case-')) openCaseFile(location.hash.replace('#case-',''));
 else if (location.hash === '#casefiles') openCaseFolder();
+
+
 // ---------- Background Music ----------
 (() => {
   const backgroundMusic = document.getElementById('backgroundMusic');
@@ -588,109 +557,73 @@ else if (location.hash === '#casefiles') openCaseFolder();
 
   const soundIcon = soundToggle.querySelector('.sound-icon');
   const soundLabel = soundToggle.querySelector('.sound-label');
-
   const TARGET_VOLUME = 0.10;
 
+  // Sound preference starts enabled. Browser autoplay policy may still block
+  // playback until the first user interaction.
   let soundEnabled = true;
   let userHasInteracted = false;
 
   backgroundMusic.loop = true;
   backgroundMusic.volume = TARGET_VOLUME;
 
-  function updateUI() {
-    soundToggle.classList.toggle('is-playing', soundEnabled);
-    soundToggle.setAttribute('aria-pressed', String(soundEnabled));
-
-    soundToggle.setAttribute(
-      'aria-label',
-      soundEnabled
-        ? 'Turn background sound off'
-        : 'Turn background sound on'
-    );
-
-    if (soundIcon) {
-      soundIcon.textContent = soundEnabled ? '♫' : '♪';
-    }
-
-    if (soundLabel) {
-      soundLabel.textContent = soundEnabled ? 'SOUND ON' : 'SOUND OFF';
-    }
+  function updateSoundUI() {
+    const playing = soundEnabled && !backgroundMusic.paused;
+    soundToggle.classList.toggle('is-playing', playing);
+    soundToggle.setAttribute('aria-pressed', String(playing));
+    soundToggle.setAttribute('aria-label', playing ? 'Turn background sound off' : 'Turn background sound on');
+    if (soundIcon) soundIcon.textContent = playing ? '♫' : '♪';
+    if (soundLabel) soundLabel.textContent = playing ? 'SOUND ON' : 'SOUND OFF';
   }
 
   async function playMusic() {
     if (!soundEnabled) return;
-
     try {
       backgroundMusic.volume = TARGET_VOLUME;
       await backgroundMusic.play();
     } catch (error) {
-      console.debug('Autoplay blocked:', error);
+      console.debug('Autoplay blocked by browser:', error);
     }
-
-    updateUI();
+    updateSoundUI();
   }
 
-  function stopMusic() {
+  function stopMusic(resetPosition = true) {
     backgroundMusic.pause();
-    backgroundMusic.currentTime = 0;
-    updateUI();
+    if (resetPosition) backgroundMusic.currentTime = 0;
+    updateSoundUI();
   }
 
-  // Manual toggle
   soundToggle.addEventListener('click', async (event) => {
     event.preventDefault();
     event.stopPropagation();
-
     userHasInteracted = true;
 
     if (soundEnabled) {
-      // TURN OFF
       soundEnabled = false;
-      stopMusic();
+      stopMusic(true);
     } else {
-      // TURN ON
       soundEnabled = true;
       await playMusic();
     }
   });
 
-  // Try autoplay once
+  // Try the default-on experience immediately. If the browser blocks
+  // autoplay, the first interaction will start it without overriding OFF.
+  updateSoundUI();
   playMusic();
 
-  // If autoplay is blocked, the first interaction starts it.
-  // IMPORTANT: sound button itself is excluded.
+  // If you previously asked for default-on behavior, browsers may block it.
+  // A first interaction can start it only when enabled; it will never override OFF.
   const startAfterInteraction = async (event) => {
-    if (userHasInteracted) return;
-
-    if (event.target.closest('#soundToggle')) return;
-
+    if (userHasInteracted || !soundEnabled || event.target.closest('#soundToggle')) return;
     userHasInteracted = true;
-
-    if (soundEnabled && backgroundMusic.paused) {
-      await playMusic();
-    }
-
-    window.removeEventListener('pointerdown', startAfterInteraction);
-    window.removeEventListener('keydown', startAfterInteraction);
-    window.removeEventListener('touchstart', startAfterInteraction);
-    window.removeEventListener('scroll', startAfterInteraction);
+    await playMusic();
+    ['pointerdown','keydown','touchstart','scroll'].forEach((name) => {
+      window.removeEventListener(name, startAfterInteraction);
+    });
   };
 
-  window.addEventListener('pointerdown', startAfterInteraction, {
-    passive: true
+  ['pointerdown','keydown','touchstart','scroll'].forEach((name) => {
+    window.addEventListener(name, startAfterInteraction, {passive:true});
   });
-
-  window.addEventListener('keydown', startAfterInteraction, {
-    passive: true
-  });
-
-  window.addEventListener('touchstart', startAfterInteraction, {
-    passive: true
-  });
-
-  window.addEventListener('scroll', startAfterInteraction, {
-    passive: true
-  });
-
-  updateUI();
 })();
