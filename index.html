@@ -65,10 +65,16 @@
         </div>
         <a href="#" id="cfPrototypeOpen" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">Open in Figma &rarr;</a>
       </div>
-      <div class="cf-prototype-frame">
-        <iframe id="cfPrototypeIframe" title="Figma prototype" loading="lazy" allowfullscreen></iframe>
+      <div class="cf-prototype-stage">
+        <div class="cf-phone" aria-label="Mobile prototype preview">
+          <div class="cf-phone-speaker" aria-hidden="true"></div>
+          <div class="cf-phone-screen">
+            <iframe id="cfPrototypeIframe" title="Figma mobile prototype" loading="lazy" scrolling="yes" allow="fullscreen; clipboard-write" allowfullscreen></iframe>
+          </div>
+          <div class="cf-phone-home" aria-hidden="true"></div>
+        </div>
       </div>
-      <p class="cf-prototype-note">Interactive Figma prototype &mdash; scroll, click, and explore the flow.</p>
+      <p class="cf-prototype-note">Scroll inside the phone to move through the prototype. Click elements to interact with the Figma flow.</p>
     </div>
   </div>
   <div class="shell cf-body-wrap">
