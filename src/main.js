@@ -164,6 +164,13 @@ const cards = [
   {ex:'Exhibit E', slug:'hostel-management', cat:'Open source &middot; GitHub', title:'Hostel Management', url:'github.com/pradhummandil/hostel-management',
    desc:'A smaller utility from the repo list \u2014 a hostel management system for handling room allotments, resident records and everyday admin work, built to solve one specific problem cleanly.',
    tags:['TypeScript','React','Node.js'], meta:'2026', colors:['#151a1f','#2c3944']},
+
+  {ex:'Exhibit F', slug:'nearhive-partner', cat:'UI/UX &middot; Figma', title:'Nearhive Partner App', url:'figma.com/design/nearhive-partner-app',
+   desc:'A mobile-first partner product exploration designed in Figma, focused on clear operational workflows, information hierarchy, and a polished partner-side experience.',
+   tags:['Figma','UI/UX','Mobile Design','Prototype'], meta:'2026 &middot; Product Design', colors:['#1b1712','#5b4630']},
+  {ex:'Exhibit G', slug:'swiggy-instamart-human-care', cat:'UI/UX &middot; Figma', title:'Swiggy Instamart — Human Care', url:'figma.com/design/swiggy-instamart-human-care',
+   desc:'A human-centered UI/UX concept exploring how Instamart could make support, assistance, and care interactions feel more accessible, reassuring, and intuitive.',
+   tags:['Figma','UI/UX','Human-Centered Design','Prototype'], meta:'2026 &middot; Concept Design', colors:['#2b1717','#733b32']},
 ];
 const cardGrid = document.getElementById('cardGrid');
 cards.forEach(c=>{
@@ -383,7 +390,48 @@ const caseFiles = {
     quote:null,
     facts:[['Frontend','React &middot; TypeScript'],['Backend','Node.js'],['Scope','Single-purpose utility'],['Status','On GitHub']],
     related:['study-hub','adihat-full-app']
+  },
+  'nearhive-partner': {
+    ex:'Exhibit F', label:'UI/UX &middot; Figma',
+    url:'https://www.figma.com/design/Q0WkyrCoPCYjVbTZ1TYp1X/nearhive-partner-app?t=4MNws0N7hF3epEGQ-0',
+    domain:'figma.com',
+    prototypeUrl:'https://www.figma.com/proto/Q0WkyrCoPCYjVbTZ1TYp1X/nearhive-partner-app?node-id=415-460&starting-point-node-id=415%3A460',
+    prototypeEmbed:'https://embed.figma.com/proto/Q0WkyrCoPCYjVbTZ1TYp1X/nearhive-partner-app?node-id=415-460&starting-point-node-id=415%3A460&embed-host=share',
+    headline:'A partner-side product experience designed to make operations feel simple.',
+    dek:'A Figma-based mobile product exploration for the Nearhive Partner App — focused on clear workflows, practical information hierarchy, and a polished partner experience.',
+    meta:'2026 &middot; Product Design',
+    colors:['#1b1712','#5b4630'],
+    body:[
+      "Nearhive Partner App is a UI/UX exploration built in Figma around the needs of a partner-facing mobile product. The focus was not only visual polish, but making the key actions and operational information easy to discover.",
+      "The design system uses structured hierarchy, clear action states, and mobile-first layouts so the interface can remain readable while carrying a realistic amount of product information.",
+      "The prototype connects the main screens into an interactive flow, allowing the experience to be evaluated as a product rather than as a set of disconnected static screens.",
+      "This case file represents the design side of the portfolio — product thinking, interface systems, interaction design, and prototype-driven iteration."
+    ],
+    quote:'"A product should make the next action obvious before the user has to search for it."',
+    facts:[['Tool','Figma'],['Type','Mobile product UI/UX'],['Focus','Partner workflows'],['Prototype','Interactive'],['Platform','Mobile'],['Status','Design exploration']],
+    related:['swiggy-instamart-human-care','study-hub']
+  },
+  'swiggy-instamart-human-care': {
+    ex:'Exhibit G', label:'UI/UX &middot; Human Care',
+    url:'https://www.figma.com/design/DUAtrHb8NiYj2swyKGiAPo/Swiggy-Instamart--Human-Care--Pradhum-Mandil?t=VNWmmvIWTm6BT7oq-0',
+    domain:'figma.com',
+    prototypeUrl:'https://www.figma.com/proto/DUAtrHb8NiYj2swyKGiAPo/Swiggy-Instamart--Human-Care--Pradhum-Mandil?node-id=0-1',
+    prototypeEmbed:'https://embed.figma.com/proto/DUAtrHb8NiYj2swyKGiAPo/Swiggy-Instamart--Human-Care--Pradhum-Mandil?node-id=40002223-3042&starting-point-node-id=40002223%3A3042&embed-host=share',
+    headline:'A human-centered care concept for Instamart.',
+    dek:'A Figma concept exploring how a high-speed commerce product could introduce a more reassuring, accessible, and human support experience.',
+    meta:'2026 &middot; Concept Design',
+    colors:['#2b1717','#733b32'],
+    body:[
+      "Swiggy Instamart — Human Care explores the support layer around a fast commerce experience. The project looks at how care, assistance, and problem resolution can feel less transactional and more human.",
+      "The interface balances the speed expected from Instamart with clearer communication, friendlier guidance, and stronger visual reassurance around moments where users may feel uncertain or need help.",
+      "The prototype turns the concept into a navigable experience, making it possible to inspect the interaction flow rather than evaluating only individual screens.",
+      "It is a concept case study that demonstrates UX thinking: identifying a human problem, framing the interaction, and expressing the solution through interface design."
+    ],
+    quote:'"Good support does not only solve the problem — it reduces the anxiety around having the problem."',
+    facts:[['Tool','Figma'],['Type','UI/UX concept'],['Focus','Human-centered care'],['Prototype','Interactive'],['Platform','Mobile'],['Status','Concept exploration']],
+    related:['nearhive-partner','study-hub']
   }
+
 };
 
 function cfHeroImg(slug, alt){
@@ -447,6 +495,22 @@ function openCaseFile(slug){
     return rd ? `<a data-case="${s}">${rd.ex} &mdash; ${rd.headline.split(' ').slice(0,4).join(' ')}&hellip;</a>` : '';
   }).join('');
   document.getElementById('cfVisit').href = d.url;
+
+  const prototypeSection = document.getElementById('cfPrototype');
+  const prototypeIframe = document.getElementById('cfPrototypeIframe');
+  const prototypeOpen = document.getElementById('cfPrototypeOpen');
+
+  if (prototypeSection && prototypeIframe && prototypeOpen) {
+    if (d.prototypeEmbed) {
+      prototypeSection.style.display = 'block';
+      prototypeIframe.src = d.prototypeEmbed;
+      prototypeOpen.href = d.prototypeUrl || d.url;
+    } else {
+      prototypeSection.style.display = 'none';
+      prototypeIframe.src = '';
+      prototypeOpen.href = '#';
+    }
+  }
 
   showView('case');
   document.title = `Case File: ${d.ex} — Pradhum Mandil`;

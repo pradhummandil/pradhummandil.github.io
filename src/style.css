@@ -400,6 +400,23 @@
   .section-glass{display:flex;justify-content:center;padding:22px 0;color:var(--ink-faint);}
   .section-glass svg{width:22px;height:22px;}
 
+/* ---------- Figma prototype ---------- */
+.cf-prototype{margin-top:34px;border-top:2px solid var(--ink);padding-top:24px;}
+.cf-prototype-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:16px;}
+.cf-prototype-kicker{display:block;margin-bottom:6px;font-family:var(--font-gothic);font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--stamp);}
+.cf-prototype-head h2{margin:0;font-family:var(--font-display);font-size:clamp(28px,4vw,42px);font-weight:400;line-height:1;}
+.cf-prototype-frame{position:relative;width:100%;min-height:600px;border:2px solid var(--ink);background:var(--paper-deep);overflow:hidden;}
+.cf-prototype-frame iframe{display:block;width:100%;height:700px;border:0;background:var(--paper-bright);}
+.cf-prototype-note{margin:10px 0 0;font-family:var(--font-gothic);font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--ink-soft);}
+@media(max-width:700px){.cf-prototype-head{align-items:flex-start;flex-direction:column;}.cf-prototype-frame{min-height:520px;}.cf-prototype-frame iframe{height:520px;}}
+
+/* ---------- Background Sound Toggle ---------- */
+.sound-toggle{position:fixed;top:74px;right:20px;z-index:1000;display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:8px 12px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);font-family:var(--font-gothic);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background-color .2s ease,color .2s ease,transform .2s ease;}
+.sound-toggle:hover{background:var(--ink);color:var(--paper);transform:translateY(-1px);}
+.sound-toggle.is-playing{background:var(--ink);color:var(--paper);}
+.sound-icon{font-family:var(--font-display);font-size:16px;line-height:1;}
+@media(max-width:639px){.sound-toggle{top:66px;right:12px;padding:8px 10px;}.sound-label{display:none;}}
+
 /* ---------- Resume reader ---------- */
 #resumeView{
   display:none;
