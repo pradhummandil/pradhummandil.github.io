@@ -526,15 +526,15 @@
 
 /* =========================================================
    PATCH — PROJECT IMAGE SIZE + MOBILE RESPONSIVENESS ONLY
-   Existing design preserved; editorial landscape ratio.
+   Existing design preserved; these are final overrides.
    ========================================================= */
 
-/* All project-card thumbnails use one consistent newspaper-style rectangle. */
+/* Keep every project thumbnail compact and identical in height. */
 .grid3 .card .polaroid-img{
   width:100%;
-  height:auto;
-  min-height:0;
-  aspect-ratio:16/9;
+  height:150px;
+  min-height:150px;
+  aspect-ratio:auto;
   overflow:hidden;
 }
 
@@ -544,17 +544,15 @@
   height:100%;
   min-height:0;
   object-fit:cover;
-  object-position:center;
   display:block;
 }
 
-/* Missing images keep exactly the same 16:9 box. */
+/* Do not let missing-image alt text create a visually oversized box. */
 .grid3 .card .polaroid-img img.image-missing{
   display:block;
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:center;
   font-family:var(--font-gothic);
   font-size:10px;
   line-height:1.3;
@@ -562,7 +560,15 @@
   background:var(--paper);
 }
 
-/* Phones: one clean column, same 16:9 editorial image ratio. */
+/* Tablet: keep the same editorial proportions without stretching. */
+@media (min-width:600px) and (max-width:939px){
+  .grid3 .card .polaroid-img{
+    height:145px;
+    min-height:145px;
+  }
+}
+
+/* Phones: one clean column and compact, consistent image blocks. */
 @media (max-width:599px){
   .shell{
     padding-inline:14px;
@@ -599,10 +605,8 @@
   }
 
   .grid3 .card .polaroid-img{
-    width:100%;
-    height:auto;
-    min-height:0;
-    aspect-ratio:16/9;
+    height:155px;
+    min-height:155px;
   }
 
   .polaroid-foot{
@@ -671,55 +675,15 @@
   }
 }
 
-/* Very small phones: keep the same ratio rather than using a fixed height. */
+/* Very small phones: prevent oversized fixed media. */
 @media (max-width:380px){
   .grid3 .card .polaroid-img{
-    width:100%;
-    height:auto;
-    min-height:0;
-    aspect-ratio:16/9;
+    height:140px;
+    min-height:140px;
   }
 
   .cf-prototype-frame iframe{
     height:560px;
-  }
-}
-
-/* =========================================================
-   DATELINE — LEFT TO RIGHT EDITORIAL REVEAL
-   ========================================================= */
-
-#dateline-text{
-  display:inline-block;
-  opacity:0;
-  clip-path:inset(0 100% 0 0);
-  transform:translateX(-8px);
-}
-
-#dateline-text.dateline-reveal{
-  animation:datelineReveal 1s cubic-bezier(.16,1,.3,1) forwards;
-}
-
-@keyframes datelineReveal{
-  0%{
-    opacity:0;
-    clip-path:inset(0 100% 0 0);
-    transform:translateX(-8px);
-  }
-
-  100%{
-    opacity:1;
-    clip-path:inset(0 0 0 0);
-    transform:translateX(0);
-  }
-}
-
-@media(prefers-reduced-motion:reduce){
-  #dateline-text{
-    opacity:1;
-    clip-path:inset(0);
-    transform:none;
-    animation:none !important;
   }
 }
 
@@ -803,4 +767,72 @@
   .cf-analysis-card:last-child{border-bottom:0;}
   .sound-toggle{top:66px;right:12px;padding:8px 10px;}
   .sound-label{display:none;}
+}
+
+
+/* =========================================================
+   FINAL PROJECT IMAGE FIX — 16:9 ON DESKTOP + MOBILE
+   ========================================================= */
+.grid3 .card .polaroid-img{
+  width:100% !important;
+  height:auto !important;
+  min-height:0 !important;
+  aspect-ratio:16 / 9 !important;
+  overflow:hidden;
+}
+
+.grid3 .card .polaroid-img img,
+.grid3 .card .polaroid-img svg{
+  width:100% !important;
+  height:100% !important;
+  min-height:0 !important;
+  max-height:none !important;
+  object-fit:cover !important;
+  object-position:center !important;
+  display:block;
+}
+
+@media (max-width:599px){
+  .grid3 .card .polaroid-img{
+    width:100% !important;
+    height:auto !important;
+    min-height:0 !important;
+    aspect-ratio:16 / 9 !important;
+  }
+}
+
+/* =========================================================
+   DATELINE — 1 SECOND LEFT-TO-RIGHT REVEAL
+   ========================================================= */
+#dateline-text{
+  display:inline-block;
+  opacity:0;
+  clip-path:inset(0 100% 0 0);
+  transform:translateX(-8px);
+}
+
+#dateline-text.dateline-reveal{
+  animation:datelineReveal 1s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+@keyframes datelineReveal{
+  0%{
+    opacity:0;
+    clip-path:inset(0 100% 0 0);
+    transform:translateX(-8px);
+  }
+  100%{
+    opacity:1;
+    clip-path:inset(0 0 0 0);
+    transform:translateX(0);
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  #dateline-text{
+    opacity:1;
+    clip-path:inset(0);
+    transform:none;
+    animation:none !important;
+  }
 }

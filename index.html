@@ -5,15 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Pradhum Mandil - Full-Stack &amp; Flutter Developer</title>
 <meta name="description" content="Pradhum Mandil is a full-stack and Flutter developer from Bhopal, India, building web apps, mobile apps, and Adihat — a healthcare platform — end to end."/>
+<link rel="icon" type="image/png" href="/images/pradhum.png"/>
+<link rel="apple-touch-icon" href="/images/pradhum.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Libre+Franklin:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <!-- External styles -->
-<link rel="stylesheet" href="styles.css">
 
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
+
+<!-- Background music -->
+<audio id="backgroundMusic" loop preload="auto">
+  <source src="/music/suspense-tension.mp3" type="audio/mpeg">
+</audio>
+
+<button
+  id="soundToggle"
+  class="sound-toggle"
+  type="button"
+  aria-label="Turn background sound on"
+  aria-pressed="false"
+>
+  <span class="sound-icon">♪</span>
+  <span class="sound-label">SOUND OFF</span>
+</button>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="fm-rough" x="-20%" y="-20%" width="140%" height="140%">
@@ -59,6 +75,19 @@
       <div class="cf-media-img" id="cfMediaImg"></div>
       <div class="cf-media-cap"><span id="cfExLabel"></span><span id="cfFigCap"></span></div>
     </div>
+    <div class="cf-prototype" id="cfPrototype" style="display:none;">
+      <div class="cf-prototype-head">
+        <div>
+          <span class="cf-prototype-kicker">Interactive Prototype</span>
+          <h2>Walk through the design.</h2>
+        </div>
+        <a href="#" id="cfPrototypeOpen" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">Open in Figma &rarr;</a>
+      </div>
+      <div class="cf-prototype-frame">
+        <iframe id="cfPrototypeIframe" title="Figma prototype" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <p class="cf-prototype-note">Interactive Figma prototype &mdash; scroll, click, and explore the flow.</p>
+    </div>
   </div>
   <div class="shell cf-body-wrap">
     <div>
@@ -73,11 +102,66 @@
       </div>
     </aside>
   </div>
+
+  <section class="shell cf-analysis" id="cfAnalysis" style="display:none;">
+    <div class="cf-analysis-head">
+      <div>
+        <span class="kicker">Design Investigation</span>
+        <h2 class="h2">From problem to prototype.</h2>
+      </div>
+      <span class="kicker">Four decisions on record</span>
+    </div>
+    <div class="cf-analysis-grid" id="cfAnalysisGrid"></div>
+  </section>
+
   <div class="shell cf-footbar">
     <span class="cf-back btn btn-ghost btn-lg" id="cfBack2">&larr; Back to the case</span>
     <span class="btn btn-ghost btn-lg" id="cfAllCases" style="cursor:pointer;">All case files</span>
     <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg" id="cfVisit">Inspect the evidence &mdash; visit the project &rarr;</a>
   </div>
+</div>
+
+<div id="resumeView" aria-hidden="true">
+  <div class="shell resume-topbar">
+    <div class="resume-topbar-row">
+      <button class="cf-back resume-back" id="resumeBack" type="button">
+        <span>&larr; Back to the desk</span>
+      </button>
+      <span>The Pradhum Mandil Times &middot; Curriculum Vitae</span>
+      <span>Filed from India</span>
+    </div>
+  </div>
+
+  <main class="shell resume-page">
+    <div class="resume-heading">
+      <div>
+        <span class="resume-kicker">Private Record &middot; 2026</span>
+        <h1>Resume</h1>
+        <p>Pradhum Mandil &middot; Full-Stack Web &amp; App Developer</p>
+      </div>
+      <div class="resume-actions">
+        <a class="btn btn-ghost btn-sm" href="/pdf/Resume.pdf" target="_blank" rel="noopener noreferrer">Open PDF ↗</a>
+        <a class="btn btn-primary btn-sm" href="/pdf/Resume.pdf" download="Pradhum-Mandil-Resume.pdf">Download</a>
+      </div>
+    </div>
+
+    <section class="resume-reader" aria-label="Resume PDF reader">
+      <div class="resume-reader-bar">
+        <span>Document Viewer</span>
+        <span>Resume.pdf</span>
+      </div>
+      <iframe
+        id="resumeFrame"
+        src="/pdf/Resume.pdf#toolbar=1&navpanes=0&scrollbar=1&view=FitH"
+        title="Pradhum Mandil Resume"
+        loading="eager"
+      ></iframe>
+      <div class="resume-fallback">
+        <p>If the embedded viewer is unavailable in this browser, open the PDF directly.</p>
+        <a class="btn btn-primary btn-sm" href="/pdf/Resume.pdf" target="_blank" rel="noopener noreferrer">Open Resume PDF ↗</a>
+      </div>
+    </section>
+  </main>
 </div>
 
 <div id="caseFolderView">
@@ -95,7 +179,7 @@
   <div class="shell cfo-hero">
     <div class="cf-eyebrow">Case File &middot; Complete Index</div>
     <h1 class="cfo-title">The full case file.</h1>
-    <p class="cfo-dek">Every project on record — Study Hub, India Story Project, the Adihat builds, and the rest of the repo list. Pick one up.</p>
+    <p class="cfo-dek">Every project on record — production builds, product work, UI/UX studies, Figma prototypes, and the rest of the repo list. Pick one up.</p>
     <div class="cfo-list" id="cfoList"></div>
   </div>
 </div>
@@ -123,6 +207,7 @@
     <nav class="bar">
       <span class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">Pradhum Mandil</span>
       <div class="nav-links">
+        <a id="navResume" style="cursor:pointer;">Resume</a>
         <a href="#work">Work</a>
         <a href="#stack">Stack</a>
         <a id="navCaseFiles" style="cursor:pointer;">Case Files</a>
@@ -137,6 +222,7 @@
       </div>
     </nav>
     <div class="mobile-menu" id="mobileMenu">
+      <a id="navResumeMobile" style="cursor:pointer;">Resume <span>&rarr;</span></a>
       <a href="#work">Work <span>&rarr;</span></a>
       <a href="#stack">Stack <span>&rarr;</span></a>
       <a id="navCaseFilesMobile" style="cursor:pointer;">Case Files <span>&rarr;</span></a>
@@ -149,6 +235,15 @@
         <span><a href="https://github.com/pradhummandil" target="_blank" rel="noopener noreferrer">github.com/pradhummandil</a></span>
       </div>
     </div>
+  </div>
+</div>
+
+
+<div class="desk-ticker" aria-label="Latest filing">
+  <div class="shell desk-ticker-inner">
+    <span class="desk-ticker-label">● LATEST FILED</span>
+    <span class="desk-ticker-story" id="deskTickerStory">EXHIBIT G — SWIGGY INSTAMART: HUMAN CARE</span>
+    <span class="desk-ticker-arrow">&rarr;</span>
   </div>
 </div>
 
@@ -189,6 +284,41 @@
   </div>
 </section>
 
+
+<section class="desk-now">
+  <div class="shell">
+    <div class="desk-now-head">
+      <div>
+        <span class="kicker">Currently on the desk</span>
+        <h2 class="h2">The Now File</h2>
+      </div>
+      <span class="kicker">A live snapshot of what is moving</span>
+    </div>
+    <div class="desk-now-grid">
+      <article class="desk-now-item rv">
+        <span class="desk-now-label">Building</span>
+        <strong>Adihat 2.0</strong>
+        <p>Eight-portal healthcare product architecture, Flutter builds and backend systems.</p>
+      </article>
+      <article class="desk-now-item rv">
+        <span class="desk-now-label">Learning</span>
+        <strong>DSA · Java · GATE</strong>
+        <p>Daily problem solving, systems thinking and deeper computer-science fundamentals.</p>
+      </article>
+      <article class="desk-now-item rv">
+        <span class="desk-now-label">Designing</span>
+        <strong>Product systems</strong>
+        <p>Figma prototypes, mobile UX and human-centered interface experiments.</p>
+      </article>
+      <article class="desk-now-item desk-now-item--accent rv">
+        <span class="desk-now-label">Availability</span>
+        <strong>Select freelance work</strong>
+        <p>Web, app and UI/UX engagements with a remote-first workflow.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
 <hr class="thick"/>
 
 <section id="work" class="work">
@@ -199,12 +329,21 @@
           <span class="kicker">The Evidence</span>
           <h2 class="h2">Selected Works</h2>
         </div>
-        <span class="kicker" style="white-space:nowrap;cursor:pointer;text-decoration:underline;" id="workAllCases">Exhibits A &ndash; E &middot; View full case folder &rarr;</span>
+        <span class="kicker" style="white-space:nowrap;cursor:pointer;text-decoration:underline;" id="workAllCases">Exhibits A &ndash; G &middot; View full case folder &rarr;</span>
       </div>
       <div class="rule rv"></div>
+      
+      <div class="work-filters" id="workFilters" aria-label="Filter selected works">
+        <button type="button" class="work-filter is-active" data-filter="all">All</button>
+        <button type="button" class="work-filter" data-filter="development">Development</button>
+        <button type="button" class="work-filter" data-filter="product">Product</button>
+        <button type="button" class="work-filter" data-filter="uiux">UI/UX</button>
+        <button type="button" class="work-filter" data-filter="figma">Figma</button>
+      </div>
+
     </div>
 
-    <article class="flagship rv">
+    <article class="flagship rv" data-work-type="product development">
       <div class="flagship-media">
         <div class="polaroid" data-case="study-hub">
           <div class="polaroid-img">
@@ -394,7 +533,6 @@
 
 </div><!-- /mainWrap -->
 
-<!-- External behavior -->
 <script type="module" src="/src/main.js"></script>
 </body>
 </html>
