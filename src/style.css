@@ -522,3 +522,167 @@
   .resume-reader iframe{height:78vh;min-height:560px;}
   .resume-reader-bar{font-size:9px;}
 }
+
+
+/* =========================================================
+   PATCH — PROJECT IMAGE SIZE + MOBILE RESPONSIVENESS ONLY
+   Existing design preserved; these are final overrides.
+   ========================================================= */
+
+/* Keep every project thumbnail compact and identical in height. */
+.grid3 .card .polaroid-img{
+  width:100%;
+  height:150px;
+  min-height:150px;
+  aspect-ratio:auto;
+  overflow:hidden;
+}
+
+.grid3 .card .polaroid-img img,
+.grid3 .card .polaroid-img svg{
+  width:100%;
+  height:100%;
+  min-height:0;
+  object-fit:cover;
+  display:block;
+}
+
+/* Do not let missing-image alt text create a visually oversized box. */
+.grid3 .card .polaroid-img img.image-missing{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  font-family:var(--font-gothic);
+  font-size:10px;
+  line-height:1.3;
+  color:var(--ink-soft);
+  background:var(--paper);
+}
+
+/* Tablet: keep the same editorial proportions without stretching. */
+@media (min-width:600px) and (max-width:939px){
+  .grid3 .card .polaroid-img{
+    height:145px;
+    min-height:145px;
+  }
+}
+
+/* Phones: one clean column and compact, consistent image blocks. */
+@media (max-width:599px){
+  .shell{
+    padding-inline:14px;
+  }
+
+  .front-head,
+  .cf-topbar-row{
+    gap:8px 14px;
+  }
+
+  .front-head{
+    align-items:flex-start;
+    flex-wrap:wrap;
+  }
+
+  .grid3{
+    grid-template-columns:1fr;
+  }
+
+  .grid3>.card,
+  .grid3>.card:nth-child(2n),
+  .grid3>.card:nth-child(3n){
+    padding-right:0;
+    border-right:0;
+  }
+
+  .grid3 .card{
+    padding:22px 0;
+  }
+
+  .grid3 .card .exhibit-title{
+    min-height:0;
+    font-size:26px;
+  }
+
+  .grid3 .card .polaroid-img{
+    height:155px;
+    min-height:155px;
+  }
+
+  .polaroid-foot{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:5px;
+  }
+
+  .polaroid-foot span:last-child{
+    max-width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+
+  .exhibit-foot{
+    align-items:flex-start;
+    flex-wrap:wrap;
+  }
+
+  .case-link{
+    margin-left:auto;
+  }
+
+  /* Keep case-file media readable on small screens. */
+  .cf-media-img{
+    aspect-ratio:16/10;
+  }
+
+  .cf-media-cap{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:4px;
+  }
+
+  /* Make the Figma prototype feel like a phone-sized viewport. */
+  .cf-prototype-frame{
+    width:min(100%, 390px);
+    margin-inline:auto;
+    min-height:0;
+    padding:10px;
+    background:var(--ink);
+    border:2px solid var(--ink);
+  }
+
+  .cf-prototype-frame iframe{
+    width:100%;
+    height:620px;
+    border:0;
+    background:var(--paper-bright);
+  }
+
+  .cf-prototype-note{
+    text-align:center;
+  }
+
+  /* Resume controls stack cleanly on mobile. */
+  .resume-actions{
+    width:100%;
+    flex-wrap:wrap;
+  }
+
+  .resume-actions .btn{
+    flex:1 1 auto;
+    justify-content:center;
+  }
+}
+
+/* Very small phones: prevent oversized fixed media. */
+@media (max-width:380px){
+  .grid3 .card .polaroid-img{
+    height:140px;
+    min-height:140px;
+  }
+
+  .cf-prototype-frame iframe{
+    height:560px;
+  }
+}
