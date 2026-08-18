@@ -170,7 +170,25 @@
     .grid3>.card:nth-child(2n){border-right:1px solid rgba(22,20,15,.25);padding-right:26px;}
     .grid3>.card:nth-child(3n){border-right:0;padding-right:0;}}
   .card .exhibit-title{font-size:28px;min-height:60px;}
-  .card .polaroid-img{aspect-ratio:16/9;height:176px;}
+  /* Project cards: consistent wide editorial thumbnails */
+  .card .polaroid-img{
+    width:100%;
+    height:auto;
+    min-height:0;
+    aspect-ratio:16/9;
+    overflow:hidden;
+  }
+
+  .card .polaroid-img img,
+  .card .polaroid-img svg{
+    width:100%;
+    height:100%;
+    min-height:0;
+    object-fit:cover;
+    object-position:center;
+    display:block;
+  }
+
   .card .exhibit-desc{font-size:15px;}
 
   /* stack table */
@@ -605,8 +623,19 @@
   }
 
   .grid3 .card .polaroid-img{
-    height:155px;
-    min-height:155px;
+    width:100%;
+    height:auto;
+    min-height:0;
+    aspect-ratio:16/9;
+  }
+
+  .grid3 .card .polaroid-img img,
+  .grid3 .card .polaroid-img svg{
+    width:100%;
+    height:100%;
+    min-height:0;
+    object-fit:cover;
+    object-position:center;
   }
 
   .polaroid-foot{
@@ -678,8 +707,10 @@
 /* Very small phones: prevent oversized fixed media. */
 @media (max-width:380px){
   .grid3 .card .polaroid-img{
-    height:140px;
-    min-height:140px;
+    width:100%;
+    height:auto;
+    min-height:0;
+    aspect-ratio:16/9;
   }
 
   .cf-prototype-frame iframe{
