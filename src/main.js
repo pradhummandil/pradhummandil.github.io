@@ -660,7 +660,7 @@ if (workFilters) {
   const key = 'pm_sound_enabled';
   let enabled = localStorage.getItem(key) !== 'false';
 
-  audio.volume = 0.10;
+  audio.volume = 0.20;
   audio.loop = true;
 
   const render = () => {
