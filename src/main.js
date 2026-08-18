@@ -20,6 +20,28 @@ window.scrollTo(0, 0);
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const coarse = window.matchMedia('(pointer: coarse)').matches;
+  const INTRO_SEEN_KEY = 'pradhum_intro_seen';
+
+  let introSeen = false;
+  try {
+    introSeen = localStorage.getItem(INTRO_SEEN_KEY) === '1';
+  } catch (error) {
+    introSeen = false;
+  }
+
+  function markIntroSeen(){
+    try {
+      localStorage.setItem(INTRO_SEEN_KEY, '1');
+    } catch (error) {}
+  }
+
+  if (reduced || introSeen) {
+    markIntroSeen();
+    intro.remove();
+    document.body.style.overflow = '';
+    window.scrollTo(0, 0);
+    return;
+  }
 
 
   function buildScene(el){
@@ -45,11 +67,11 @@ window.scrollTo(0, 0);
   buildScene(document.getElementById('fmSceneMag'));
 
   function finish(){
+    markIntroSeen();
     intro.classList.add('fm-exit');
     setTimeout(()=>{ intro.remove(); document.body.style.overflow=''; window.scrollTo(0,0); }, 460);
   }
 
-  if (reduced) { intro.remove(); window.scrollTo(0,0); return; }
   document.body.style.overflow='hidden';
 
   document.getElementById('fmSkip').addEventListener('click', finish);
@@ -117,16 +139,13 @@ window.scrollTo(0, 0);
 
 // ---------- Dateline ----------
 const datelineText = document.getElementById('dateline-text');
-
 if (datelineText) {
   datelineText.textContent = new Date().toLocaleDateString('en-IN', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
+    weekday:'long',
+    day:'numeric',
+    month:'long',
+    year:'numeric'
   });
-
-  // Restart the 1-second editorial reveal on every full page load.
   datelineText.classList.remove('dateline-reveal');
   void datelineText.offsetWidth;
   datelineText.classList.add('dateline-reveal');
@@ -587,7 +606,9 @@ document.getElementById('navResumeMobile').addEventListener('click', function(e)
 
 document.getElementById('footerFingerprint').addEventListener('click', function(e){
   e.preventDefault();
-  try{ document.cookie = 'rt_intro_seen=; path=/; max-age=0'; }catch(err){}
+  try {
+    localStorage.removeItem('pradhum_intro_seen');
+  } catch (err) {}
   window.location.href = window.location.pathname + window.location.search;
 });
 
@@ -618,48 +639,42 @@ else if (location.hash === '#casefiles') openCaseFolder();
   const TARGET_VOLUME = 0.10;
   const STORAGE_KEY = 'pradhum-background-sound';
 
-  // Sound is ON by default. A visitor's explicit choice is remembered.
   let soundEnabled = localStorage.getItem(STORAGE_KEY) !== 'off';
+  let userGestureReceived = false;
 
   backgroundMusic.loop = true;
   backgroundMusic.volume = TARGET_VOLUME;
+  backgroundMusic.preload = 'auto';
 
   function updateSoundUI() {
     const playing = !backgroundMusic.paused && soundEnabled;
 
     soundToggle.classList.toggle('is-playing', playing);
-    soundToggle.setAttribute(
-      'aria-pressed',
-      String(soundEnabled)
-    );
+    soundToggle.setAttribute('aria-pressed', String(soundEnabled));
     soundToggle.setAttribute(
       'aria-label',
-      soundEnabled
-        ? 'Turn background sound off'
-        : 'Turn background sound on'
+      soundEnabled ? 'Turn background sound off' : 'Turn background sound on'
     );
 
-    if (soundIcon) {
-      soundIcon.textContent = soundEnabled ? '♫' : '♪';
-    }
-
-    if (soundLabel) {
-      soundLabel.textContent = soundEnabled ? 'SOUND ON' : 'SOUND OFF';
-    }
+    if (soundIcon) soundIcon.textContent = soundEnabled ? '♫' : '♪';
+    if (soundLabel) soundLabel.textContent = soundEnabled ? 'SOUND ON' : 'SOUND OFF';
   }
 
   async function startMusic() {
-    if (!soundEnabled) return;
+    if (!soundEnabled) {
+      updateSoundUI();
+      return false;
+    }
 
     try {
       backgroundMusic.volume = TARGET_VOLUME;
       await backgroundMusic.play();
+      updateSoundUI();
+      return true;
     } catch (error) {
-      // Browsers can block autoplay until the visitor interacts.
-      console.debug('Background audio autoplay blocked:', error);
+      updateSoundUI();
+      return false;
     }
-
-    updateSoundUI();
   }
 
   function stopMusic() {
@@ -671,6 +686,7 @@ else if (location.hash === '#casefiles') openCaseFolder();
   soundToggle.addEventListener('click', async (event) => {
     event.preventDefault();
     event.stopPropagation();
+    userGestureReceived = true;
 
     if (soundEnabled) {
       soundEnabled = false;
@@ -683,37 +699,36 @@ else if (location.hash === '#casefiles') openCaseFolder();
     }
   });
 
-  backgroundMusic.addEventListener('play', updateSoundUI);
-  backgroundMusic.addEventListener('pause', updateSoundUI);
-
-  // Try to start automatically if the visitor has sound enabled.
   startMusic();
 
-  // If autoplay is blocked, the first non-toggle interaction starts audio.
-  const interactionEvents = [
-    'pointerdown',
-    'keydown',
-    'touchstart',
-    'scroll'
-  ];
+  const firstGestureEvents = ['pointerdown', 'keydown', 'touchstart'];
 
-  function startAfterInteraction(event) {
-    if (!soundEnabled) return;
-    if (event.target && event.target.closest('#soundToggle')) return;
+  async function handleFirstGesture(event) {
+    if (userGestureReceived) return;
 
-    startMusic();
+    if (event.target && event.target.closest('#soundToggle')) {
+      userGestureReceived = true;
+      return;
+    }
 
-    interactionEvents.forEach((eventName) => {
-      window.removeEventListener(eventName, startAfterInteraction);
+    userGestureReceived = true;
+
+    if (soundEnabled && backgroundMusic.paused) {
+      await startMusic();
+    }
+
+    firstGestureEvents.forEach((eventName) => {
+      window.removeEventListener(eventName, handleFirstGesture);
     });
   }
 
-  interactionEvents.forEach((eventName) => {
-    window.addEventListener(eventName, startAfterInteraction, {
-      once: true,
-      passive: true
-    });
+  firstGestureEvents.forEach((eventName) => {
+    window.addEventListener(eventName, handleFirstGesture, { passive: true });
   });
+
+  backgroundMusic.addEventListener('play', updateSoundUI);
+  backgroundMusic.addEventListener('pause', updateSoundUI);
+  backgroundMusic.addEventListener('ended', updateSoundUI);
 
   updateSoundUI();
 })();
