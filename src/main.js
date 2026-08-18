@@ -152,30 +152,33 @@ function mockScreenSVG(w, h, colors){
 
 // ---------- Data ----------
 const cards = [
-  {ex:'Exhibit B', slug:'india-story-project', cat:'Co-built &middot; indiastoryproject.com', title:'India Story Project', url:'indiastoryproject.com',
+  {type:'development', ex:'Exhibit B', slug:'india-story-project', cat:'Co-built &middot; indiastoryproject.com', title:'India Story Project', url:'indiastoryproject.com',
    desc:'A bilingual (English/Hindi) editorial storytelling platform preserving India\u2019s untold stories \u2014 400+ pieces across 28+ states, with an interactive India map and cinematic scroll motion. Built with backend collaborator Mayank Sahu.',
    tags:['React','TanStack Start','Prisma','PostgreSQL','Supabase','GSAP'], meta:'2026 &middot; Co-built', colors:['#1a1414','#4a2f2f']},
-  {ex:'Exhibit C', slug:'adihat-full-app', cat:'Adihat &middot; Flutter monorepo', title:'Adihat &mdash; Full Control', url:'adiha-full-control.vercel.app',
+  {type:'development product', ex:'Exhibit C', slug:'adihat-full-app', cat:'Adihat &middot; Flutter monorepo', title:'Adihat &mdash; Full Control', url:'adiha-full-control.vercel.app',
    desc:'An eight-portal healthcare platform \u2014 Patient, Doctor, Hospital, Lab, Pharmacy, Ambulance, Insurance and Admin \u2014 built end to end as a Flutter monorepo, with role-based access control and audit-logged compliance groundwork.',
    tags:['Flutter','Dart','Node.js','RBAC','Supabase'], meta:'2026 &middot; Founder &amp; Developer', colors:['#0f1f18','#254738']},
-  {ex:'Exhibit D', slug:'adihat-website', cat:'Adihat &middot; Web', title:'Adihat (Web)', url:'adihat.netlify.app',
+  {type:'development', ex:'Exhibit D', slug:'adihat-website', cat:'Adihat &middot; Web', title:'Adihat (Web)', url:'adihat.netlify.app',
    desc:'The original Adihat build \u2014 a mental-wellness support platform for students, with an AI chat companion, gamified daily check-ins, anonymous peer support forums, and a parent dashboard for early intervention.',
    tags:['React','Node.js','Express','MongoDB','TensorFlow'], meta:'2025 &middot; Web build', colors:['#1c1730','#3a2f5c']},
-  {ex:'Exhibit E', slug:'hostel-management', cat:'Open source &middot; GitHub', title:'Hostel Management', url:'github.com/pradhummandil/hostel-management',
+  {type:'development', ex:'Exhibit E', slug:'hostel-management', cat:'Open source &middot; GitHub', title:'Hostel Management', url:'github.com/pradhummandil/hostel-management',
    desc:'A smaller utility from the repo list \u2014 a hostel management system for handling room allotments, resident records and everyday admin work, built to solve one specific problem cleanly.',
    tags:['TypeScript','React','Node.js'], meta:'2026', colors:['#151a1f','#2c3944']},
 
-  {ex:'Exhibit F', slug:'nearhive-partner', cat:'UI/UX &middot; Figma', title:'Nearhive Partner App', url:'figma.com/design/nearhive-partner-app',
+  {type:'uiux figma product', ex:'Exhibit F', slug:'nearhive-partner', cat:'UI/UX &middot; Figma', title:'Nearhive Partner App', url:'figma.com/design/nearhive-partner-app',
    desc:'A mobile-first partner product exploration designed in Figma, focused on clear operational workflows, information hierarchy, and a polished partner-side experience.',
    tags:['Figma','UI/UX','Mobile Design','Prototype'], meta:'2026 &middot; Product Design', colors:['#1b1712','#5b4630']},
-  {ex:'Exhibit G', slug:'swiggy-instamart-human-care', cat:'UI/UX &middot; Figma', title:'Swiggy Instamart — Human Care', url:'figma.com/design/swiggy-instamart-human-care',
+  {type:'uiux figma product', ex:'Exhibit G', slug:'swiggy-instamart-human-care', cat:'UI/UX &middot; Figma', title:'Swiggy Instamart — Human Care', url:'figma.com/design/swiggy-instamart-human-care',
    desc:'A human-centered UI/UX concept exploring how Instamart could make support, assistance, and care interactions feel more accessible, reassuring, and intuitive.',
    tags:['Figma','UI/UX','Human-Centered Design','Prototype'], meta:'2026 &middot; Concept Design', colors:['#2b1717','#733b32']},
 ];
 const cardGrid = document.getElementById('cardGrid');
+const deskTickerStory = document.getElementById('deskTickerStory');
+if (deskTickerStory) deskTickerStory.textContent = 'EXHIBIT G — SWIGGY INSTAMART: HUMAN CARE';
 cards.forEach(c=>{
   const el = document.createElement('article');
   el.className = 'card rv';
+  el.dataset.workType = c.type || '';
   el.innerHTML = `
     <span class="exhibit-flag">${c.ex}</span>
     <span class="exhibit-cat">${c.cat}</span>
@@ -409,6 +412,12 @@ const caseFiles = {
     ],
     quote:'"A product should make the next action obvious before the user has to search for it."',
     facts:[['Tool','Figma'],['Type','Mobile product UI/UX'],['Focus','Partner workflows'],['Prototype','Interactive'],['Platform','Mobile'],['Status','Design exploration']],
+    analysis:[
+      ['The problem','Partner workflows can become dense when operational actions, status and information compete for attention.'],
+      ['The approach','A mobile-first hierarchy keeps primary actions obvious while grouping supporting information into clear visual modules.'],
+      ['The decision','The prototype prioritises action clarity over decorative complexity, so the user knows what to do next.'],
+      ['The result','A connected interactive flow that can be tested as a product journey rather than as isolated screens.']
+    ],
     related:['swiggy-instamart-human-care','study-hub']
   },
   'swiggy-instamart-human-care': {
@@ -429,6 +438,12 @@ const caseFiles = {
     ],
     quote:'"Good support does not only solve the problem — it reduces the anxiety around having the problem."',
     facts:[['Tool','Figma'],['Type','UI/UX concept'],['Focus','Human-centered care'],['Prototype','Interactive'],['Platform','Mobile'],['Status','Concept exploration']],
+    analysis:[
+      ['The problem','Fast commerce is efficient, but support moments can feel abrupt when a user needs reassurance or help.'],
+      ['The approach','The concept reframes support as a calm, human layer around the transactional core of the shopping experience.'],
+      ['The decision','Clear language and visible reassurance reduce uncertainty without slowing the primary task.'],
+      ['The result','A prototype that communicates both the interaction pattern and the emotional intent of the experience.']
+    ],
     related:['nearhive-partner','study-hub']
   }
 
@@ -495,6 +510,22 @@ function openCaseFile(slug){
     return rd ? `<a data-case="${s}">${rd.ex} &mdash; ${rd.headline.split(' ').slice(0,4).join(' ')}&hellip;</a>` : '';
   }).join('');
   document.getElementById('cfVisit').href = d.url;
+
+  const analysisSection = document.getElementById('cfAnalysis');
+  const analysisGrid = document.getElementById('cfAnalysisGrid');
+  if (analysisSection && analysisGrid) {
+    if (d.analysis) {
+      analysisSection.style.display = 'block';
+      analysisGrid.innerHTML = d.analysis.map(([label, text]) => `
+        <article class="cf-analysis-card">
+          <span>${label}</span>
+          <p>${text}</p>
+        </article>`).join('');
+    } else {
+      analysisSection.style.display = 'none';
+      analysisGrid.innerHTML = '';
+    }
+  }
 
   const prototypeSection = document.getElementById('cfPrototype');
   const prototypeIframe = document.getElementById('cfPrototypeIframe');
@@ -590,3 +621,88 @@ window.addEventListener('popstate', function(){
 if (location.hash === '#resume') openResume(false);
 else if (location.hash.startsWith('#case-')) openCaseFile(location.hash.replace('#case-',''));
 else if (location.hash === '#casefiles') openCaseFolder();
+
+// ---------- Work filters ----------
+const workFilters = document.getElementById('workFilters');
+const flagshipWork = document.querySelector('.flagship[data-work-type]');
+const projectCards = () => Array.from(document.querySelectorAll('#cardGrid .card'));
+
+if (workFilters) {
+  workFilters.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-filter]');
+    if (!button) return;
+
+    const filter = button.dataset.filter;
+    workFilters.querySelectorAll('.work-filter').forEach(btn => {
+      btn.classList.toggle('is-active', btn === button);
+    });
+
+    if (flagshipWork) {
+      const types = (flagshipWork.dataset.workType || '').split(' ');
+      flagshipWork.hidden = filter !== 'all' && !types.includes(filter);
+    }
+
+    projectCards().forEach(card => {
+      const types = (card.dataset.workType || '').split(' ');
+      card.hidden = filter !== 'all' && !types.includes(filter);
+    });
+  });
+}
+
+// ---------- Sound preference ----------
+(() => {
+  const audio = document.getElementById('backgroundMusic');
+  const toggle = document.getElementById('soundToggle');
+  if (!audio || !toggle) return;
+
+  const icon = toggle.querySelector('.sound-icon');
+  const label = toggle.querySelector('.sound-label');
+  const key = 'pm_sound_enabled';
+  let enabled = localStorage.getItem(key) !== 'false';
+
+  audio.volume = 0.10;
+  audio.loop = true;
+
+  const render = () => {
+    toggle.classList.toggle('is-playing', enabled && !audio.paused);
+    toggle.setAttribute('aria-pressed', String(enabled));
+    toggle.setAttribute('aria-label', enabled ? 'Turn background sound off' : 'Turn background sound on');
+    if (icon) icon.textContent = enabled ? '♫' : '♪';
+    if (label) label.textContent = enabled ? 'SOUND ON' : 'SOUND OFF';
+  };
+
+  const play = async () => {
+    if (!enabled) return;
+    try { await audio.play(); } catch (_) {}
+    render();
+  };
+
+  toggle.addEventListener('click', async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    enabled = !enabled;
+    localStorage.setItem(key, String(enabled));
+
+    if (enabled) {
+      await play();
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+    render();
+  });
+
+  const startOnce = () => {
+    if (enabled && audio.paused) play();
+    ['pointerdown','keydown','touchstart','scroll'].forEach(type =>
+      window.removeEventListener(type, startOnce)
+    );
+  };
+
+  ['pointerdown','keydown','touchstart','scroll'].forEach(type =>
+    window.addEventListener(type, startOnce, {once:true, passive:true})
+  );
+
+  render();
+  play();
+})();
