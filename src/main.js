@@ -753,81 +753,89 @@ if (workFilters) {
   audio.preload = 'auto';
 
   const updateUI = () => {
-    toggle.classList.toggle('is-playing', enabled);
-    toggle.setAttribute('aria-pressed', String(enabled));
-    toggle.setAttribute('aria-label', enabled ? 'Turn background sound off' : 'Turn background sound on');
-    if (icon) icon.textContent = enabled ? '♫' : '♪';
-    if (label) label.textContent = enabled ? 'SOUND ON' : 'SOUND OFF';
+    const isPlaying = !audio.paused;
+    toggle.classList.toggle('is-playing', isPlaying);
+    toggle.setAttribute('aria-pressed', String(isPlaying));
+    toggle.setAttribute('aria-label', isPlaying ? 'Turn background sound off' : 'Turn background sound on');
+    if (icon) icon.textContent = isPlaying ? '♫' : '♪';
+    if (label) label.textContent = isPlaying ? 'SOUND ON' : 'SOUND OFF';
   };
 
-  const playAudio = async () => {
-    if (!enabled) {
-      updateUI();
-      return false;
-    }
+  const startPlayback = () => {
+    if (!enabled) return;
+    audio.volume = TARGET_VOLUME;
     try {
-      audio.volume = TARGET_VOLUME;
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        await playPromise;
+      const p = audio.play();
+      if (p && typeof p.then === 'function') {
+        p.then(() => {
+          updateUI();
+          removeGestureListeners();
+        }).catch((err) => {
+          console.warn('[Audio Controller] Playback deferred until user interaction:', err.message || err);
+          updateUI();
+        });
+      } else {
+        updateUI();
+        removeGestureListeners();
       }
+    } catch (err) {
+      console.warn('[Audio Controller] Playback error:', err);
       updateUI();
-      removeGestureListeners();
-      return true;
-    } catch (error) {
-      // Browser deferred autoplay until next user gesture
-      console.warn('[Audio Controller] Waiting for interaction to begin playback:', error.message || error);
-      updateUI();
-      return false;
     }
   };
 
-  const stopAudio = () => {
+  const stopPlayback = () => {
     audio.pause();
     audio.currentTime = 0;
     updateUI();
   };
 
-  toggle.addEventListener('click', async (event) => {
+  // Single-tap toggle handler
+  toggle.addEventListener('click', (event) => {
     event.preventDefault();
     event.stopPropagation();
-    enabled = !enabled;
-    localStorage.setItem(STORAGE_KEY, String(enabled));
-    localStorage.setItem('pradhum-background-sound', enabled ? 'on' : 'off');
 
-    if (enabled) {
-      await playAudio();
+    if (audio.paused) {
+      // Direct user tap to start music (immediate 1-tap activation)
+      enabled = true;
+      localStorage.setItem(STORAGE_KEY, 'true');
+      localStorage.setItem('pradhum-background-sound', 'on');
+      startPlayback();
     } else {
-      stopAudio();
+      // User tap to mute
+      enabled = false;
+      localStorage.setItem(STORAGE_KEY, 'false');
+      localStorage.setItem('pradhum-background-sound', 'off');
+      stopPlayback();
     }
   });
 
+  // Global gesture listeners for automatic unlocking on first touch/scroll
   const gestureEvents = [
-    'touchstart', 'touchend', 'touchmove',
-    'pointerdown', 'pointerup',
-    'click', 'mousedown', 'mouseup',
-    'keydown', 'scroll'
+    'pointerdown', 'touchstart', 'touchend', 'click', 'keydown', 'scroll'
   ];
 
-  const handleGesture = async (event) => {
+  const handleGesture = (event) => {
     if (!enabled) return;
     if (event.target && event.target.closest && event.target.closest('#soundToggle')) {
       return;
     }
     if (audio.paused) {
-      await playAudio();
+      startPlayback();
+    } else {
+      removeGestureListeners();
     }
   };
 
   function addGestureListeners() {
     gestureEvents.forEach(type => {
-      window.addEventListener(type, handleGesture, { passive: true });
+      window.addEventListener(type, handleGesture, { passive: true, capture: true });
     });
   }
 
   function removeGestureListeners() {
     gestureEvents.forEach(type => {
-      window.removeEventListener(type, handleGesture);
+      window.removeEventListener(type, handleGesture, { capture: true });
     });
   }
 
@@ -840,6 +848,9 @@ if (workFilters) {
   audio.addEventListener('pause', updateUI);
   audio.addEventListener('ended', updateUI);
 
+  // Initial attempt on load
   updateUI();
-  playAudio();
+  if (enabled) {
+    startPlayback();
+  }
 })();
