@@ -185,33 +185,39 @@ function mockScreenSVG(w, h, colors){
 
 // ---------- Data ----------
 const cards = [
-  {type:'development', ex:'Exhibit B', slug:'india-story-project', cat:'Co-built &middot; indiastoryproject.com', title:'India Story Project', url:'indiastoryproject.com',
+  {type:'development product', ex:'Exhibit B', slug:'study-hub', cat:'Guidance Platform &middot; Solo build', title:'Study Hub', url:'studyhub-bypradhum.vercel.app',
+   desc:'A student guidance platform built for GATE and JEE aspirants. Real Supabase auth with Google OAuth, a live Cal.com booking widget for free 1-on-1 guidance calls, a searchable resource library of official papers, and a Focus Room study timer with streaks — all wrapped in a cinematic, glass-navigation landing page.',
+   tags:['React','Vite','TypeScript','Tailwind','shadcn/ui','Supabase'], meta:'2026 &mdash; Now &middot; Solo build', colors:['#0f1b2e','#2c4064'], image:'/images/study-hub.jpg'},
+  {type:'development', ex:'Exhibit C', slug:'india-story-project', cat:'Co-built &middot; indiastoryproject.com', title:'India Story Project', url:'indiastoryproject.com',
    desc:'A bilingual (English/Hindi) editorial storytelling platform preserving India\u2019s untold stories \u2014 400+ pieces across 28+ states, with an interactive India map and cinematic scroll motion. Built with backend collaborator Mayank Sahu.',
-   tags:['React','TanStack Start','Prisma','PostgreSQL','Supabase','GSAP'], meta:'2026 &middot; Co-built', colors:['#1a1414','#4a2f2f']},
-  {type:'development product', ex:'Exhibit C', slug:'adihat-full-app', cat:'Adihat &middot; Flutter monorepo', title:'Adihat &mdash; Full Control', url:'adiha-full-control.vercel.app',
+   tags:['React','TanStack Start','Prisma','PostgreSQL','Supabase','GSAP'], meta:'2026 &middot; Co-built', colors:['#1a1414','#4a2f2f'], image:'/images/india-story-project.jpg'},
+  {type:'development product', ex:'Exhibit D', slug:'adihat-full-app', cat:'Adihat &middot; Flutter monorepo', title:'Adihat &mdash; Full Control', url:'adiha-full-control.vercel.app',
    desc:'An eight-portal healthcare platform \u2014 Patient, Doctor, Hospital, Lab, Pharmacy, Ambulance, Insurance and Admin \u2014 built end to end as a Flutter monorepo, with role-based access control and audit-logged compliance groundwork.',
-   tags:['Flutter','Dart','Node.js','RBAC','Supabase'], meta:'2026 &middot; Founder &amp; Developer', colors:['#0f1f18','#254738']},
-  {type:'development', ex:'Exhibit D', slug:'adihat-website', cat:'Adihat &middot; Web', title:'Adihat (Web)', url:'adihat.netlify.app',
+   tags:['Flutter','Dart','Node.js','RBAC','Supabase'], meta:'2026 &middot; Founder &amp; Developer', colors:['#0f1f18','#254738'], image:'/images/adihat-full-app.jpg'},
+  {type:'development', ex:'Exhibit E', slug:'adihat-website', cat:'Adihat &middot; Web', title:'Adihat (Web)', url:'adihat.netlify.app',
    desc:'The original Adihat build \u2014 a mental-wellness support platform for students, with an AI chat companion, gamified daily check-ins, anonymous peer support forums, and a parent dashboard for early intervention.',
-   tags:['React','Node.js','Express','MongoDB','TensorFlow'], meta:'2025 &middot; Web build', colors:['#1c1730','#3a2f5c']},
-  {type:'development', ex:'Exhibit E', slug:'hostel-management', cat:'Open source &middot; GitHub', title:'Hostel Management', url:'github.com/pradhummandil/hostel-management',
+   tags:['React','Node.js','Express','MongoDB','TensorFlow'], meta:'2025 &middot; Web build', colors:['#1c1730','#3a2f5c'], image:'/images/adihat-website.jpg'},
+  {type:'development', ex:'Exhibit F', slug:'hostel-management', cat:'Open source &middot; GitHub', title:'Hostel Management', url:'github.com/pradhummandil/hostel-management',
    desc:'A smaller utility from the repo list \u2014 a hostel management system for handling room allotments, resident records and everyday admin work, built to solve one specific problem cleanly.',
-   tags:['TypeScript','React','Node.js'], meta:'2026', colors:['#151a1f','#2c3944']},
-
-  {type:'uiux figma product', ex:'Exhibit F', slug:'nearhive-partner', cat:'UI/UX &middot; Figma', title:'Nearhive Partner App', url:'figma.com/design/nearhive-partner-app',
+   tags:['TypeScript','React','Node.js'], meta:'2026', colors:['#151a1f','#2c3944'], image:'/images/study-hub.jpg'},
+  {type:'uiux figma product', ex:'Exhibit G', slug:'nearhive-partner', cat:'UI/UX &middot; Figma', title:'Nearhive Partner App', url:'figma.com/design/nearhive-partner-app',
    desc:'A mobile-first partner product exploration designed in Figma, focused on clear operational workflows, information hierarchy, and a polished partner-side experience.',
-   tags:['Figma','UI/UX','Mobile Design','Prototype'], meta:'2026 &middot; Product Design', colors:['#1b1712','#5b4630']},
-  {type:'uiux figma product', ex:'Exhibit G', slug:'swiggy-instamart-human-care', cat:'UI/UX &middot; Figma', title:'Swiggy Instamart — Human Care', url:'figma.com/design/swiggy-instamart-human-care',
+   tags:['Figma','UI/UX','Mobile Design','Prototype'], meta:'2026 &middot; Product Design', colors:['#1b1712','#5b4630'], image:'/images/nearhive-partner.jpg'},
+  {type:'uiux figma product', ex:'Exhibit H', slug:'swiggy-instamart-human-care', cat:'UI/UX &middot; Figma', title:'Swiggy Instamart — Human Care', url:'figma.com/design/swiggy-instamart-human-care',
    desc:'A human-centered UI/UX concept exploring how Instamart could make support, assistance, and care interactions feel more accessible, reassuring, and intuitive.',
-   tags:['Figma','UI/UX','Human-Centered Design','Prototype'], meta:'2026 &middot; Concept Design', colors:['#2b1717','#733b32']},
+   tags:['Figma','UI/UX','Human-Centered Design','Prototype'], meta:'2026 &middot; Concept Design', colors:['#2b1717','#733b32'], image:'/images/swiggy-instamart-human-care.jpg'},
+  {type:'development product', ex:'Exhibit I', slug:'scamshield', cat:'Security &middot; Web App', title:'ScamShield', url:'github.com/pradhummandil/ScamShield.github.io',
+   desc:'A full-stack, real-time fraud intelligence system purpose-built around UPI and digital payment scams in India, combining graph-based relationship mapping, AI risk-scoring, and browser interception.',
+   tags:['React','Vite','TypeScript','Neo4j','PostgreSQL','Prisma'], meta:'2026 &middot; Security &amp; Intelligence', colors:['#052e16','#065f46'], image:'/images/scamshield.png'},
 ];
 const cardGrid = document.getElementById('cardGrid');
 const deskTickerStory = document.getElementById('deskTickerStory');
-if (deskTickerStory) deskTickerStory.textContent = 'EXHIBIT G — SWIGGY INSTAMART: HUMAN CARE';
+if (deskTickerStory) deskTickerStory.textContent = 'EXHIBIT A — VELMORA';
 cards.forEach(c=>{
   const el = document.createElement('article');
   el.className = 'card rv';
   el.dataset.workType = c.type || '';
+  const initialImg = c.image || `/images/${c.slug}.jpg`;
   el.innerHTML = `
     <span class="exhibit-flag">${c.ex}</span>
     <span class="exhibit-cat">${c.cat}</span>
@@ -219,7 +225,7 @@ cards.forEach(c=>{
     <div style="margin-top:16px;">
       <div class="polaroid" data-case="${c.slug}">
         <div class="polaroid-img">
-          <img src="/images/${c.slug}.jpg" alt="${c.title} screenshot" onerror="this.onerror=null;this.classList.add('image-missing');"/>
+          <img src="${initialImg}" alt="${c.title} screenshot" onerror="this.onerror=null;if(!this.src.endsWith('.png')){this.src='/images/${c.slug}.png';}else if(!this.src.endsWith('.jpg')){this.src='/images/${c.slug}.jpg';}else{this.classList.add('image-missing');}"/>
           <span class="stamp-confirmed">Confirmed</span>
         </div>
         <div class="polaroid-foot">
@@ -348,11 +354,30 @@ document.getElementById('contactForm').addEventListener('submit', async function
 
 // ---------- Case files (detail pages) ----------
 const caseFiles = {
+  'velmora': {
+    ex:'Exhibit A', label:'VELMORA &middot; Flagship &middot; Full-Stack Product', url:'https://velmora-house.vercel.app', domain:'velmora-house.vercel.app',
+    headline:'A modern, full-stack real-estate marketplace with verified auth and editorial listings.',
+    dek:'A Next.js 14 and Express platform designed around property browsing, secure JWT authentication, property comparisons, agent profiles, and interactive analytics dashboards.',
+    meta:'2026 &mdash; Now &middot; Full-Stack Build',
+    image:'/images/VelmoraMain.png',
+    colors:['#0f172a','#1e3a8a'],
+    body:[
+      "THE CASE — VELMORA is a full-stack real estate platform built to let users browse, list, and manage property listings with a real authentication system behind it — not just a static template. It bridges the gap between high-end boutique property discovery and full-stack operational depth.",
+      "THE PROBLEM — Most property portals either suffer from cluttered, legacy interfaces or exist purely as static frontend mockups with mock state. VELMORA solves this by providing 17+ unique listing layout variations, 6 property detail layouts, and side-by-side comparison workflows backed by an active database layer.",
+      "THE SYSTEM — Built with a Next.js 14 and TypeScript frontend paired with an Express and TypeScript backend. User authentication is secured end-to-end via JWT and bcrypt password hashing (10 salt rounds), with custom route protection middleware and user profile management.",
+      "THE EXPERIENCE — State is managed globally using Redux Toolkit for shortlisting, filtering, and comparison queues. The UI features scroll-triggered animations via WOW.js, responsive lightbox galleries, toast feedback, Yup validation schemas, and interactive Chart.js analytics widgets.",
+      "THE BUILD — Architecture cleanly decouples the presentation layer from the API services, supporting Sequelize ORM with PostgreSQL and SQLite configurations, modular component design, and responsive layouts calibrated for desktop, tablet, and mobile."
+    ],
+    quote:'"Browse. List. Sell. Repeat. — production-ready real estate architecture with buttery-smooth animations."',
+    facts:[['Frontend','Next.js 14 &middot; React 18 &middot; TypeScript'],['Backend','Express &middot; Node.js &middot; TypeScript'],['Auth','JWT &middot; bcrypt (10 salt rounds)'],['State','Redux Toolkit'],['Database','Sequelize &middot; PostgreSQL / SQLite'],['UI &amp; FX','WOW.js &middot; Lightbox galleries'],['Analytics','Chart.js dashboards'],['Status','Under active development']],
+    related:['study-hub','scamshield']
+  },
   'study-hub': {
-    ex:'Exhibit A', label:'Study Hub &middot; Flagship', url:'https://studyhub-bypradhum.vercel.app/', domain:'studyhub-bypradhum.vercel.app',
+    ex:'Exhibit B', label:'Study Hub &middot; Guidance Platform', url:'https://studyhub-bypradhum.vercel.app/', domain:'studyhub-bypradhum.vercel.app',
     headline:'A guidance platform built for students who are actually preparing for GATE.',
     dek:'A solo-built React and Supabase platform \u2014 real booking, a real study timer, and a real resource library, wrapped in a cinematic landing page.',
     meta:'2026 &mdash; Now &middot; Solo build',
+    image:'/images/study-hub.jpg',
     colors:['#0f1b2e','#2c4064'],
     body:[
       "Study Hub started as a straightforward problem: GATE and JEE aspirants needed one place to book guidance, track study time, and find official papers \u2014 instead of five browser tabs and a WhatsApp group. The build leans on React, Vite and TypeScript on the front, with Tailwind and shadcn/ui doing the visual heavy lifting.",
@@ -362,13 +387,14 @@ const caseFiles = {
     ],
     quote:'"Full-stack developer \u00b7 GATE 2027 aspirant \u00b7 quiet-grind believer."',
     facts:[['Frontend','React &middot; Vite &middot; TypeScript'],['UI','Tailwind &middot; shadcn/ui'],['Auth','Supabase (Email + Google)'],['Booking','Cal.com embed'],['Hosting','Vercel'],['Status','Live']],
-    related:['india-story-project','adihat-full-app']
+    related:['velmora','india-story-project']
   },
   'india-story-project': {
-    ex:'Exhibit B', label:'Co-built &middot; indiastoryproject.com', url:'https://www.indiastoryproject.com/', domain:'indiastoryproject.com',
+    ex:'Exhibit C', label:'Co-built &middot; indiastoryproject.com', url:'https://www.indiastoryproject.com/', domain:'indiastoryproject.com',
     headline:'400+ Indian stories, told with the polish of a design studio.',
     dek:'A bilingual editorial platform for India\u2019s changemakers and quiet revolutions \u2014 an interactive map, cinematic motion, and a real production backend, co-built with Mayank Sahu.',
     meta:'2026 &middot; Co-built with Mayank Sahu',
+    image:'/images/india-story-project.jpg',
     colors:['#1a1414','#4a2f2f'],
     body:[
       "India Story Project set out to be something other than another news blog \u2014 an immersive, editorial home for the changemakers and everyday heroes that don't usually get a byline. The front end runs on React 19 and TanStack Start, with GSAP handling scroll-triggered timelines and Framer Motion covering the smaller, component-level interactions.",
@@ -378,13 +404,14 @@ const caseFiles = {
     ],
     quote:'"Every scroll, hover, and transition should feel like turning the page of a premium storybook."',
     facts:[['Frontend','React 19 &middot; TanStack Start'],['Motion','GSAP &middot; Framer Motion'],['Backend','Prisma &middot; PostgreSQL'],['Auth','Supabase'],['Team','Solo frontend, co-built backend'],['Status','Live &middot; 400+ stories']],
-    related:['study-hub','adihat-website']
+    related:['velmora','adihat-website']
   },
   'adihat-full-app': {
-    ex:'Exhibit C', label:'Adihat &middot; Flutter monorepo', url:'https://adiha-full-control.vercel.app/', domain:'adiha-full-control.vercel.app',
+    ex:'Exhibit D', label:'Adihat &middot; Flutter monorepo', url:'https://adiha-full-control.vercel.app/', domain:'adiha-full-control.vercel.app',
     headline:'Eight portals, one healthcare platform, built from scratch.',
     dek:'Adihat\u2019s current form \u2014 a Flutter monorepo covering Patient, Doctor, Hospital, Lab, Pharmacy, Ambulance, Insurance and Admin, with role-based access baked in from day one.',
     meta:'2026 &middot; Founder &amp; Developer',
+    image:'/images/adihat-full-app.jpg',
     colors:['#0f1f18','#254738'],
     body:[
       "This is Adihat's most ambitious form so far \u2014 not a single app, but eight coordinated portals sharing one backend and one set of design decisions. Patients, doctors, hospital staff, lab technicians, pharmacists, ambulance dispatchers, insurers and admins each get a purpose-built Flutter app, organized as a single monorepo with a shared package for common logic.",
@@ -397,10 +424,11 @@ const caseFiles = {
     related:['adihat-website','study-hub']
   },
   'adihat-website': {
-    ex:'Exhibit D', label:'Adihat &middot; Web', url:'https://adihat.netlify.app/', domain:'adihat.netlify.app',
+    ex:'Exhibit E', label:'Adihat &middot; Web', url:'https://adihat.netlify.app/', domain:'adihat.netlify.app',
     headline:'Where Adihat started: a mental-wellness platform for students.',
     dek:'The original Adihat build \u2014 an AI chat companion, gamified check-ins, anonymous peer support, and a parent dashboard built to catch problems early.',
     meta:'2025 &middot; Web build',
+    image:'/images/adihat-website.jpg',
     colors:['#1c1730','#3a2f5c'],
     body:[
       "Before Adihat became a healthcare monorepo, it was this \u2014 a web platform aimed squarely at student mental well-being. The idea was to combine AI-driven personalization, peer support, and professional guidance into one place students would actually open more than once, instead of a static resources page nobody visits after week one.",
@@ -413,10 +441,11 @@ const caseFiles = {
     related:['adihat-full-app','india-story-project']
   },
   'hostel-management': {
-    ex:'Exhibit E', label:'Open source &middot; GitHub', url:'https://github.com/pradhummandil/hostel-management', domain:'github.com/pradhummandil/hostel-management',
+    ex:'Exhibit F', label:'Open source &middot; GitHub', url:'https://github.com/pradhummandil/hostel-management', domain:'github.com/pradhummandil/hostel-management',
     headline:'A smaller file, but a real one: hostel administration, solved.',
     dek:'A hostel management system for room allotments, resident records and the everyday admin work that usually lives in a spreadsheet.',
     meta:'2026',
+    image:'/images/study-hub.jpg',
     colors:['#151a1f','#2c3944'],
     body:[
       "Not every exhibit needs to be a flagship. This one is smaller and more utilitarian by design \u2014 a hostel management system built to replace the spreadsheet-and-notice-board approach most hostels still run on, with proper records for room allotments and resident details.",
@@ -425,12 +454,13 @@ const caseFiles = {
     ],
     quote:null,
     facts:[['Frontend','React &middot; TypeScript'],['Backend','Node.js'],['Scope','Single-purpose utility'],['Status','On GitHub']],
-    related:['study-hub','adihat-full-app']
+    related:['study-hub','scamshield']
   },
   'nearhive-partner': {
-    ex:'Exhibit F', label:'UI/UX &middot; Figma',
+    ex:'Exhibit G', label:'UI/UX &middot; Figma',
     url:'https://www.figma.com/design/Q0WkyrCoPCYjVbTZ1TYp1X/nearhive-partner-app?t=4MNws0N7hF3epEGQ-0',
     domain:'figma.com',
+    image:'/images/nearhive-partner.jpg',
     prototypeUrl:'https://www.figma.com/proto/Q0WkyrCoPCYjVbTZ1TYp1X/nearhive-partner-app?node-id=415-460&starting-point-node-id=415%3A460',
     prototypeEmbed:'https://embed.figma.com/proto/Q0WkyrCoPCYjVbTZ1TYp1X/nearhive-partner-app?node-id=415-460&starting-point-node-id=415%3A460&embed-host=share',
     headline:'A partner-side product experience designed to make operations feel simple.',
@@ -454,9 +484,10 @@ const caseFiles = {
     related:['swiggy-instamart-human-care','study-hub']
   },
   'swiggy-instamart-human-care': {
-    ex:'Exhibit G', label:'UI/UX &middot; Human Care',
+    ex:'Exhibit H', label:'UI/UX &middot; Human Care',
     url:'https://www.figma.com/design/DUAtrHb8NiYj2swyKGiAPo/Swiggy-Instamart--Human-Care--Pradhum-Mandil?t=VNWmmvIWTm6BT7oq-0',
     domain:'figma.com',
+    image:'/images/swiggy-instamart-human-care.jpg',
     prototypeUrl:'https://www.figma.com/proto/DUAtrHb8NiYj2swyKGiAPo/Swiggy-Instamart--Human-Care--Pradhum-Mandil?node-id=0-1',
     prototypeEmbed:'https://embed.figma.com/proto/DUAtrHb8NiYj2swyKGiAPo/Swiggy-Instamart--Human-Care--Pradhum-Mandil?node-id=40002223-3042&starting-point-node-id=40002223%3A3042&embed-host=share',
     headline:'A human-centered care concept for Instamart.',
@@ -478,12 +509,33 @@ const caseFiles = {
       ['The result','A prototype that communicates both the interaction pattern and the emotional intent of the experience.']
     ],
     related:['nearhive-partner','study-hub']
+  },
+  'scamshield': {
+    ex:'Exhibit I', label:'Security &middot; Web App',
+    url:'https://github.com/pradhummandil/ScamShield.github.io',
+    domain:'github.com',
+    headline:'Real-time fraud intelligence and graph-based UPI scam interception.',
+    dek:'A full-stack fraud defense network purpose-built for Digital India — pairing Neo4j graph relationships, real-time risk scoring, and a browser shield to catch scams before money moves.',
+    meta:'2026 &middot; Security &amp; Intelligence',
+    image:'/images/scamshield.png',
+    colors:['#052e16','#065f46'],
+    body:[
+      "THE CASE — ScamShield is a full-stack, real-time fraud intelligence platform purpose-built around UPI and digital payment scams in India. It aims to put a proactive checkpoint between a scammer's request and the user's account before a transaction occurs.",
+      "THE PROBLEM — Most fraud protection systems operate reactively after the money is already gone. Fraud rings rapidly swap out UPI collect requests, fake QR codes, and lookalike merchant handles across isolated silos, leaving victims with fragmented reporting channels.",
+      "THE GRAPH INTELLIGENCE — At the center sits a graph intelligence network powered by Neo4j and PostgreSQL 16 with Prisma ORM. By mapping relationships across flagged UPI IDs, phone numbers, phishing domains, and QR hashes, a single confirmed report helps protect the entire connected network.",
+      "THE INTERCEPTION LAYER — The project includes a React and Vite dashboard alongside a dedicated browser extension that inspects payment links and collect requests in real time, delivering instant Green / Yellow / Red risk verdicts and warning banners.",
+      "ADVERSARIAL TESTING — Built with an automated red-team evaluation pipeline, testing detection heuristics against evolving social-engineering vectors rather than shipping static rule sets."
+    ],
+    quote:'"Stopping UPI fraud before the money moves — graph intelligence and real-time risk scoring for every Indian."',
+    facts:[['Frontend','React &middot; Vite &middot; TypeScript'],['Backend','Node.js &middot; Express &middot; TypeScript'],['Graph Intel','Neo4j Fraud Graph'],['Database','PostgreSQL 16 &middot; Prisma'],['Interception','Browser Extension'],['Testing','Adversarial Red-Team Pipeline'],['Status','Active Development']],
+    related:['velmora','hostel-management']
   }
-
 };
 
 function cfHeroImg(slug, alt){
-  return `<img src="/images/${slug}.jpg" alt="${alt} screenshot" onerror="this.onerror=null;this.classList.add('image-missing');"/>`;
+  const cf = caseFiles[slug];
+  const initialImg = (cf && cf.image) || `/images/${slug}.png`;
+  return `<img src="${initialImg}" alt="${alt} screenshot" onerror="this.onerror=null;if(!this.src.endsWith('.jpg')){this.src='/images/${slug}.jpg';}else if(!this.src.endsWith('.png')){this.src='/images/${slug}.png';}else{this.classList.add('image-missing');}"/>`;
 }
 
 const cfView = document.getElementById('caseFileView');
@@ -682,7 +734,7 @@ if (workFilters) {
   });
 }
 
-// ---------- Sound preference ----------
+// ---------- Background Sound Controller ----------
 (() => {
   const audio = document.getElementById('backgroundMusic');
   const toggle = document.getElementById('soundToggle');
@@ -690,158 +742,84 @@ if (workFilters) {
 
   const icon = toggle.querySelector('.sound-icon');
   const label = toggle.querySelector('.sound-label');
-  const key = 'pm_sound_enabled';
-  let enabled = localStorage.getItem(key) !== 'false';
+  const STORAGE_KEY = 'pm_sound_enabled';
+  const TARGET_VOLUME = 0.10;
 
-  audio.volume = 0.10;
+  let enabled = localStorage.getItem(STORAGE_KEY) !== 'false' && localStorage.getItem('pradhum-background-sound') !== 'off';
+  let userGestureReceived = false;
+
+  audio.volume = TARGET_VOLUME;
   audio.loop = true;
+  audio.preload = 'auto';
 
-  const render = () => {
-    toggle.classList.toggle('is-playing', enabled && !audio.paused);
+  const updateUI = () => {
+    const isPlaying = enabled && !audio.paused;
+    toggle.classList.toggle('is-playing', isPlaying);
     toggle.setAttribute('aria-pressed', String(enabled));
     toggle.setAttribute('aria-label', enabled ? 'Turn background sound off' : 'Turn background sound on');
     if (icon) icon.textContent = enabled ? '♫' : '♪';
     if (label) label.textContent = enabled ? 'SOUND ON' : 'SOUND OFF';
   };
 
-  const play = async () => {
-    if (!enabled) return;
-    try { await audio.play(); } catch (_) {}
-    render();
+  const playAudio = async () => {
+    if (!enabled) {
+      updateUI();
+      return false;
+    }
+    try {
+      audio.volume = TARGET_VOLUME;
+      await audio.play();
+      updateUI();
+      return true;
+    } catch (error) {
+      // Log browser restriction accurately without breaking UI
+      console.warn('[Audio Controller] Playback deferred by browser policy:', error.message || error);
+      updateUI();
+      return false;
+    }
+  };
+
+  const stopAudio = () => {
+    audio.pause();
+    audio.currentTime = 0;
+    updateUI();
   };
 
   toggle.addEventListener('click', async (event) => {
     event.preventDefault();
     event.stopPropagation();
+    userGestureReceived = true;
     enabled = !enabled;
-    localStorage.setItem(key, String(enabled));
+    localStorage.setItem(STORAGE_KEY, String(enabled));
+    localStorage.setItem('pradhum-background-sound', enabled ? 'on' : 'off');
 
     if (enabled) {
-      await play();
+      await playAudio();
     } else {
-      audio.pause();
-      audio.currentTime = 0;
-    }
-    render();
-  });
-
-  const startOnce = () => {
-    if (enabled && audio.paused) play();
-    ['pointerdown','keydown','touchstart','scroll'].forEach(type =>
-      window.removeEventListener(type, startOnce)
-    );
-  };
-
-  ['pointerdown','keydown','touchstart','scroll'].forEach(type =>
-    window.addEventListener(type, startOnce, {once:true, passive:true})
-  );
-
-  render();
-  play();
-})();
-
-// ---------- Background Music ----------
-(() => {
-  const backgroundMusic = document.getElementById('backgroundMusic');
-  const soundToggle = document.getElementById('soundToggle');
-
-  if (!backgroundMusic || !soundToggle) return;
-
-  const soundIcon = soundToggle.querySelector('.sound-icon');
-  const soundLabel = soundToggle.querySelector('.sound-label');
-  const TARGET_VOLUME = 0.10;
-  const STORAGE_KEY = 'pradhum-background-sound';
-
-  let soundEnabled = localStorage.getItem(STORAGE_KEY) !== 'off';
-  let userGestureReceived = false;
-
-  backgroundMusic.loop = true;
-  backgroundMusic.volume = TARGET_VOLUME;
-  backgroundMusic.preload = 'auto';
-
-  function updateSoundUI() {
-    const playing = !backgroundMusic.paused && soundEnabled;
-
-    soundToggle.classList.toggle('is-playing', playing);
-    soundToggle.setAttribute('aria-pressed', String(soundEnabled));
-    soundToggle.setAttribute(
-      'aria-label',
-      soundEnabled ? 'Turn background sound off' : 'Turn background sound on'
-    );
-
-    if (soundIcon) soundIcon.textContent = soundEnabled ? '♫' : '♪';
-    if (soundLabel) soundLabel.textContent = soundEnabled ? 'SOUND ON' : 'SOUND OFF';
-  }
-
-  async function startMusic() {
-    if (!soundEnabled) {
-      updateSoundUI();
-      return false;
-    }
-
-    try {
-      backgroundMusic.volume = TARGET_VOLUME;
-      await backgroundMusic.play();
-      updateSoundUI();
-      return true;
-    } catch (error) {
-      updateSoundUI();
-      return false;
-    }
-  }
-
-  function stopMusic() {
-    backgroundMusic.pause();
-    backgroundMusic.currentTime = 0;
-    updateSoundUI();
-  }
-
-  soundToggle.addEventListener('click', async (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    userGestureReceived = true;
-
-    if (soundEnabled) {
-      soundEnabled = false;
-      localStorage.setItem(STORAGE_KEY, 'off');
-      stopMusic();
-    } else {
-      soundEnabled = true;
-      localStorage.setItem(STORAGE_KEY, 'on');
-      await startMusic();
+      stopAudio();
     }
   });
 
-  startMusic();
-
-  const firstGestureEvents = ['pointerdown', 'keydown', 'touchstart'];
-
-  async function handleFirstGesture(event) {
+  const gestureEvents = ['pointerdown', 'touchstart', 'click', 'keydown'];
+  const handleGesture = async (event) => {
     if (userGestureReceived) return;
-
-    if (event.target && event.target.closest('#soundToggle')) {
+    if (event.target && event.target.closest && event.target.closest('#soundToggle')) {
       userGestureReceived = true;
       return;
     }
-
     userGestureReceived = true;
-
-    if (soundEnabled && backgroundMusic.paused) {
-      await startMusic();
+    if (enabled && audio.paused) {
+      await playAudio();
     }
+    gestureEvents.forEach(type => window.removeEventListener(type, handleGesture));
+  };
 
-    firstGestureEvents.forEach((eventName) => {
-      window.removeEventListener(eventName, handleFirstGesture);
-    });
-  }
+  gestureEvents.forEach(type => window.addEventListener(type, handleGesture, { passive: true, once: true }));
 
-  firstGestureEvents.forEach((eventName) => {
-    window.addEventListener(eventName, handleFirstGesture, { passive: true });
-  });
+  audio.addEventListener('play', updateUI);
+  audio.addEventListener('pause', updateUI);
+  audio.addEventListener('ended', updateUI);
 
-  backgroundMusic.addEventListener('play', updateSoundUI);
-  backgroundMusic.addEventListener('pause', updateSoundUI);
-  backgroundMusic.addEventListener('ended', updateSoundUI);
-
-  updateSoundUI();
+  updateUI();
+  playAudio();
 })();

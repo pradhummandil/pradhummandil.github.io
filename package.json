@@ -12,6 +12,7 @@
     "@emailjs/browser": "^4.4.1"
   },
   "devDependencies": {
+    "puppeteer-core": "^25.8.0",
     "vite": "^7.3.1"
   }
 }
