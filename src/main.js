@@ -745,16 +745,15 @@ if (workFilters) {
   const STORAGE_KEY = 'pm_sound_enabled';
   const TARGET_VOLUME = 0.10;
 
+  // Sound is enabled by default unless visitor explicitly turned it off
   let enabled = localStorage.getItem(STORAGE_KEY) !== 'false' && localStorage.getItem('pradhum-background-sound') !== 'off';
-  let userGestureReceived = false;
 
   audio.volume = TARGET_VOLUME;
   audio.loop = true;
   audio.preload = 'auto';
 
   const updateUI = () => {
-    const isPlaying = enabled && !audio.paused;
-    toggle.classList.toggle('is-playing', isPlaying);
+    toggle.classList.toggle('is-playing', enabled);
     toggle.setAttribute('aria-pressed', String(enabled));
     toggle.setAttribute('aria-label', enabled ? 'Turn background sound off' : 'Turn background sound on');
     if (icon) icon.textContent = enabled ? '♫' : '♪';
@@ -768,12 +767,16 @@ if (workFilters) {
     }
     try {
       audio.volume = TARGET_VOLUME;
-      await audio.play();
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        await playPromise;
+      }
       updateUI();
+      removeGestureListeners();
       return true;
     } catch (error) {
-      // Log browser restriction accurately without breaking UI
-      console.warn('[Audio Controller] Playback deferred by browser policy:', error.message || error);
+      // Browser deferred autoplay until next user gesture
+      console.warn('[Audio Controller] Waiting for interaction to begin playback:', error.message || error);
       updateUI();
       return false;
     }
@@ -788,7 +791,6 @@ if (workFilters) {
   toggle.addEventListener('click', async (event) => {
     event.preventDefault();
     event.stopPropagation();
-    userGestureReceived = true;
     enabled = !enabled;
     localStorage.setItem(STORAGE_KEY, String(enabled));
     localStorage.setItem('pradhum-background-sound', enabled ? 'on' : 'off');
@@ -800,23 +802,41 @@ if (workFilters) {
     }
   });
 
-  const gestureEvents = ['pointerdown', 'touchstart', 'click', 'keydown'];
+  const gestureEvents = [
+    'touchstart', 'touchend', 'touchmove',
+    'pointerdown', 'pointerup',
+    'click', 'mousedown', 'mouseup',
+    'keydown', 'scroll'
+  ];
+
   const handleGesture = async (event) => {
-    if (userGestureReceived) return;
+    if (!enabled) return;
     if (event.target && event.target.closest && event.target.closest('#soundToggle')) {
-      userGestureReceived = true;
       return;
     }
-    userGestureReceived = true;
-    if (enabled && audio.paused) {
+    if (audio.paused) {
       await playAudio();
     }
-    gestureEvents.forEach(type => window.removeEventListener(type, handleGesture));
   };
 
-  gestureEvents.forEach(type => window.addEventListener(type, handleGesture, { passive: true, once: true }));
+  function addGestureListeners() {
+    gestureEvents.forEach(type => {
+      window.addEventListener(type, handleGesture, { passive: true });
+    });
+  }
 
-  audio.addEventListener('play', updateUI);
+  function removeGestureListeners() {
+    gestureEvents.forEach(type => {
+      window.removeEventListener(type, handleGesture);
+    });
+  }
+
+  addGestureListeners();
+
+  audio.addEventListener('play', () => {
+    updateUI();
+    removeGestureListeners();
+  });
   audio.addEventListener('pause', updateUI);
   audio.addEventListener('ended', updateUI);
 
